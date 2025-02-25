@@ -1,0 +1,165 @@
+﻿
+@model NMCPipedGasLineAPI.Models.CustomerBillInformation
+@{
+    ViewBag.Title = "PaymentHistory";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+}
+
+
+
+<script>
+    $(document).ready(function () {
+        //$("#myTable").DataTable({
+        //    "processing": false, // for show progress bar
+        //    "serverSide": true, // for process server side
+        //    "filter": true, // this is for disable filter (search box)
+        //    "orderMulti": false, // for disable multiple column at once
+        //    "ajax": {
+        //        "url": "/Payment/LoadData",
+        //        "type": "POST",
+        //        "datatype": "json"
+        //    },
+        //    "columns": [
+        //        { "data": "BillNo", "name": "BillNo", "autoWidth": true },
+        //        { "data": "BillDate", "name": "BillDate", "autoWidth": true },
+        //        { "data": "Type", "name": "Type", "autoWidth": true },
+        //        { "data": "InvoiceValue", "name": "TotalAmt", "autoWidth": true },
+        //        { "data": "ConsumeUnit", "name": "ConsumeUnit", "autoWidth": true },
+        //        { "data": "diposit", "name": "PreviousDiposite", "autoWidth": true },
+        //        //{
+        //        //    data: "AreaId", "bSearchable": false,
+        //        //    bSortable: false,
+        //        //    mRender: function (data, type, row) {
+
+        //        //        return '<a href=Edit?AreaId=' + data + ' class="btn btn-light-success btn-sm">Edit</a>'
+        //        //            + ' <a href=Delete?AreaId=' + data + ' class="btn btn-dark-success btn-sm">Inactive</a>'
+        //        //    }
+        //        //}
+        //    ]
+        //});
+
+
+        $("#paymnetTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url":'@Url.Action("LoadPaymentData", "Payment")',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "BillNo", "name": "BillNo", "autoWidth": true },
+                 { "data": "BillDate", "name": "BillDate", "autoWidth": true },
+                { "data": "PaymentDate", "name": "PaymentDate", "autoWidth": true },
+                { "data": "ChequeNo", "name": "ChequeNo", "autoWidth": true},
+                { "data": "BankName", "name": "BankName", "autoWidth": true },
+                { "data": "AccountNo", "name": "AccountNo", "autoWidth": true },
+                { "data": "BankDetail", "name": "BankDetail", "autoWidth": true },
+                { "data": "ReceiptNo", "name": "ReceiptNo", "autoWidth": true },
+                { "data": "PaymentType", "name": "PaymentType", "autoWidth": true },
+                { "data": "Amount", "name": "Amount", "autoWidth": true }
+
+            ]
+        });
+    });
+</script>
+
+<div class="form-horizontal">
+    <h3>Current Bill Summary</h3>
+    <div class="form-row">
+
+        <div class="form-group col-md-2">
+            <label for="inputEmail4">Total Amount (INR)</label>
+
+            @Html.TextBoxFor(model => model.InvoiceValue, new { @class = "form-control", @readonly = "readonly" })
+            
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputPassword4">Payment Due (INR)</label>
+            @Html.TextBoxFor(model => model.ClosingBalance, new { @class = "form-control", @placeholder = "Amount", @readonly = "readonly" })
+        </div>
+        <div class="form-group col-md-2">
+
+            <label for="inputPassword4">Paid Amount (INR)</label>
+            @Html.TextBoxFor(model => model.PreviousRedg, new { @class = "form-control", @placeholder = "Amount", @readonly = "readonly" })
+            @Html.HiddenFor(m => m.customerid)
+            @Html.HiddenFor(m => m.billid)
+        </div>
+        @*@if (Model.diposit != 0)
+            {
+                <div class="form-group col-md-2">
+
+                    <label for="inputPassword4">Diposit Amount</label>
+                    @Html.TextBoxFor(model => model.diposit, new { @class = "form-control", @placeholder = "diposit", @readonly = "readonly" })
+
+                </div>
+            }*@
+
+
+        <div class="form-group col-md-6">
+            <label>&nbsp;</label>
+            @if (Model.ClosingBalance != 0)
+            {
+            <div>
+
+                <button title="Proceed to Payment" value="Proceed to Payment" onclick="location.href='@Url.Action("PaymentPage", "Payment")'" class="btn btn-dark-success mr-1 pull-left">Proceed to Payment</button>
+                @if (Model.billid != "")
+                {<a target="_blank" href="ViewBill?BillId=@Model.billid" class="btn  btn-light-success pull-left">View Bill</a>
+                }
+            </div>
+
+            }
+        </div>
+    </div>
+
+
+    @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-dark-success" />
+            </div>
+        </div>*@
+
+
+    @*<h4>Bill History</h4>
+        <br />
+
+        <table id="myTable" class="table-full table table-bordered table-responsive text-nowrap">
+            <thead>
+                <tr>
+                    <th>Bill No.</th>
+                    <th>Bill Date</th>
+                    <th>Type</th>
+                    <th>Total Amt.</th>
+                    <th>Consume Unit</th>
+                    <th>Previous Diposite</th>
+                </tr>
+            </thead>
+        </table>*@
+
+
+    <h4>Payment History</h4>
+    <br />
+
+    <div class="table-responsive">
+    
+        <table id="paymnetTable" class="table-full table-sm table table-bordered text-nowrap">
+            <thead>
+                <tr>
+                    <th>Bill No.</th>
+                    <th>Bill Date</th>
+                    <th>Payment Date</th>
+                    <th>Cheque No.</th>
+                    <th>Bank Name</th>
+                    <th>Account No.</th>
+                    <th>Bank Detail</th>
+                    <th>Receipt No.</th>
+                    <th>Payment Type</th>
+                    <th>Amount (INR)</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+</div>

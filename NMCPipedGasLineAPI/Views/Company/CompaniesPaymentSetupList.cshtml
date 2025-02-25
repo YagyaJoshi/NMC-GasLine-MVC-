@@ -1,0 +1,86 @@
+﻿@model IEnumerable<NMCPipedGasLineAPI.Models.CompanyPayment>
+
+@{
+    ViewBag.Title = "CompaniesPaymentSetupList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style media="all" type="text/css">
+    .alignRight {
+        text-align: right;
+    }
+</style>
+@*@if (Session["RoleName"].ToString() == "Super Admin")
+    {
+        <div style="float:right"><button class="btn btn-dark-success" onclick="location.href='@Url.Action("CompaniesPaymentSetup", "Company")';return false;">Create New</button></div>
+    }
+<br /><br />*@
+<script type="text/javascript">
+    window.onload = window.history.forward(0);
+
+    //function confirmUser(data) {
+    //    var ask = confirm("Are you sure you want to InActive this");
+    //    if (ask) {
+    //        window.location = "Delete?CompanyId=" + data;
+    //    }
+    //}
+
+    $(document).ready(function () {
+        $("#myTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/Company/LoadCompaniesPaymentSetupData",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "CreatedAt", "name": "CreatedAt", "autoWidth": true, "visible": false },
+                { "data": "CityName", "name": "CityName", "autoWidth": true },
+                { "data": "MerchantId", "name": "MerchantId", "autoWidth": true },
+                { "data": "SecurityId", "name": "SecurityId", "autoWidth": true },
+                { "data": "ChecksumKey", "name": "ChecksumKey", "autoWidth": true },
+                {
+                    data: "Id", "bSearchable": false,
+                    bSortable: false,
+                    mRender: function (data, type, row) {
+
+                        return '<a href=EditCompaniesPaymentSetup?Id=' + data + ' class="btn  btn-light-success disabled" >Edit</a>'
+                            //+ ' <a href=# class="btn btn-sm btn-dark-success"  onclick=confirmUser("' + data + '")>Inactive</a>'
+                    }
+                }
+
+            ],
+            "order": [0, "desc"]
+        });
+    });
+</script>
+
+@if (ViewBag.Error != null)
+{
+
+    <div style="color:green;">
+
+        @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+    </div>
+
+}
+
+<br />
+
+<table id="myTable" class="table-full table-sm table table-bordered table-responsive text-nowrap">
+    <thead>
+        <tr>
+            <th style="display:none">CreatedAt</th>
+
+            <th>City Name</th>
+            <th>Merchant Id</th>
+            <th>Security Id</th>
+            <th>Checksum Key</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+</table>

@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "HistoryList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Stock Item Rate History</h2>
+
+
+
+<br />
+<table id="myTable" class="table-full table table-bordered table-responsive text-nowrap">
+    <thead>
+        <tr>
+
+            <th>Rate (Rs)</th>
+            <th>Ratemonth</th>
+            <th>RateYear</th>
+            <th>Create Date</th>
+            <th>To Date</th>
+        </tr>
+    </thead>
+</table>
+<a href='@Url.Action("List","StockItem")' class="mr-2 btn btn-dark">Back To List</a>
+<style media="all" type="text/css">
+    .alignRight {
+        text-align: right;
+    }
+</style>
+
+<script>
+
+
+
+    $(document).ready(function () {
+
+
+        $("#myTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/StockItem/StockItemHistory",
+
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "Rate", "name": "Rate", "autoWidth": true, "sClass": "alignRight" },
+                { "data": "Ratemonth", "name": "Ratemonth", "autoWidth": true, "sClass": "alignRight" },
+                { "data": "RateYear", "name": "RateYear", "autoWidth": true, "sClass": "alignRight" },
+                { "data": "createdate", "name": "createdate", "autoWidth": true },
+                { "data": "ToCreatedDate", "name": "ToCreatedDate", "autoWidth": true }
+
+            ]
+        });
+    });
+</script>
+
+
+

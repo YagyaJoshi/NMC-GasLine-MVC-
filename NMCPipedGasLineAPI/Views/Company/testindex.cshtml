@@ -1,0 +1,323 @@
+﻿
+@{
+    ViewBag.Title = "testindex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>testindex</h2>
+
+@*<script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#Employeegrid').dataTable(
+                {
+                    "paging": true,
+                    "ordering": true,
+                    "filter": true,
+                    "destroy": true,
+                    "orderMulti": false,
+                    "serverSide": true,
+                    "Processing": true,
+                    "columnDefs": [
+                        { "width": "5%", "targets": [0] }
+                    ],
+                    "ajax":
+                    {
+                        "url": "/Company/getPeople",
+                        "type": "POST",
+                        "dataType": "JSON"
+                    },
+                    "aoColumns": [
+                        //{
+                        //    "mData": "Id",
+                        //    "visible": false
+                        //},
+                        { "mData": "CompanyName" },
+                        { "mData": "Address" }
+                    ]
+                });
+
+            // Setup - add a text input to each filter column
+            $('#Employeegrid.filters td').each(function () {
+
+                var title = $('#Employeegrid thead td').eq($(this).index()).text();
+                if (title) {
+                    $(this).html('<input type="text" class="form-control" />');
+                }
+            });
+
+            // DataTable
+            var table = $('#Employeegrid').DataTable(
+                {
+                    "bFilter": true,
+                    "order": []
+                });
+
+            // function to clear the previous timer and set new timer for filter column keyup event to execute.
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+
+            // script for column filter Keyup event and here I have created half second(500) delay using the timer. You can increase depends on your requirement.
+            table.columns().eq(0).each(function (colIdx) {
+                $('input', $('.filters td')[colIdx]).bind('keyup', function () {
+                    var coltext = this.value; // typed value in the search column
+                    var colindex = colIdx; // column index
+                    delay(function () {
+                        table
+                            .column(colindex)
+                            .search(coltext)
+                            .draw();
+                    }, 500);
+                });
+            });
+
+
+            $('#Employeegrid').dataTable();
+        });
+    </script>*@
+
+
+
+
+
+@*<table id="EmpInfo" class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+
+                <th scope="col">
+                        City Name
+                    </th>
+
+                <th scope="col">
+                    Company Name
+                </th>
+
+                <th scope="col">
+                    Address
+                </th>
+                <th scope="col">
+                        Late Payment Fee
+                    </th>
+                    <th scope="col">
+                        Gas Charges
+                    </th>
+                    <th scope="col">
+                        ReConnection Fee
+                    </th>
+                    <th scope="col">
+                        Installation Charges
+                    </th>
+                    <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody></tbody>
+    </table>*@
+@*table table-bordered table-condensed table-hover table-striped*@
+
+<script>
+
+    $(document).ready(function () {
+
+        if ($.fn.DataTable.isDataTable('#tblOrder')) {
+            $('#tblOrder').dataTable().fnDestroy();
+            $('#tblOrder').dataTable().empty();
+
+        }
+
+        var complete = $('#tblOrder').DataTable(
+            {
+                "serverSide": true,
+                "destroy": true,
+                "processing": true,
+                "ajax":
+                {
+                    url: "/Company/getPeople",
+                    method: "POST"
+                },
+                "columns": [
+                    { "data": "CompanyName" },
+                    { "data": "ContactName" },
+                    { "data": "OrderDate" },
+                    { "data": "RequiredDate" },
+                    { "data": "ShippedDate" },
+                    { "data": "Freight" },
+                    { "data": "ShipName" },
+                    { "data": "ShipAddress" },
+                    { "data": "ShipCity" }
+
+                ]
+            }
+
+        );
+
+        /// Following code is for filter input to apply filter only on Enter
+        var itm = $("#tblOrder_filter input")
+
+        itm.unbind();
+        itm.keyup(function (e) {
+            //enter or tab
+            if (e.keyCode == 13) {
+                complete.search(this.value).draw();
+            }
+        });
+
+
+    });
+</script>
+
+
+
+
+<table class="table" id="tblOrder">
+    <thead>
+        <tr>
+            <th>
+                CompanyName
+
+            </th>
+            <th>
+                ContactName
+
+            </th>
+            <th>
+                OrderDate
+
+            </th>
+            <th>
+                RequiredDate
+
+            </th>
+            <th>
+                ShippedDate
+
+            </th>
+            <th>
+                Freight
+
+            </th>
+            <th>
+                ShipName
+
+            </th>
+            <th>
+                ShipAddress
+
+            </th>
+            <th>
+                ShipCity
+
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+
+@*<table id="Employeegrid" class="display dataTable cell-border table-bordered" style="width: 100%;" cellspacing="0">
+    <thead>
+        <tr>
+         
+            <th>Company Name</th>
+            <th>Address</th>
+
+        </tr>
+    </thead>
+    <thead class="filters" style="text-transform:uppercase;">
+        <tr>
+            <td style="padding:5px;"> Company Name</td>
+            <td style="padding:5px;">Address</td>
+
+        </tr>
+    </thead>
+    <tbody style="text-transform:uppercase;"></tbody>
+</table>*@
+
+
+
+
+@*<script type="text/javascript">
+        $(function () {
+            GettblCompanys(1);
+        });
+        $("body").on("click", ".Pager .page", function () {
+            GettblCompanys(parseInt($(this).attr('page')));
+        });
+        function GettblCompanys(pageIndex) {
+            $.ajax({
+                type: "POST",
+                url: "/Company/AjaxMethod",
+                data: '{pageIndex: ' + pageIndex + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSuccess,
+                failure: function (response) {
+                    alert(response.d);
+                },
+                error: function (response) {
+                    alert(response.d);
+                }
+            });
+        }
+
+        function OnSuccess(response) {
+            var model = response;
+
+            if (model.PageIndex === 402) {
+                window.location = "/Area/error?Error=" + model.Value + ""
+            }
+            else {
+                var tr;
+                //Append each row to html table
+                for (var i = 0; i < model.CompanyMasterList.length; i++) {
+                    tr = $('<tr/>');
+                    tr.append("<td>" + model.CompanyMasterList[i].CityName + "</td>");
+                    tr.append("<td>" + model.CompanyMasterList[i].CompanyName + "</td>");
+                    tr.append("<td>" + model.CompanyMasterList[i].Address + "</td>");
+                    tr.append("<td>" + model.CompanyMasterList[i].LatePaymentFee + "</td>");
+                    tr.append("<td>" + model.CompanyMasterList[i].MinimumGasCharges + "</td>");
+                    tr.append("<td>" + model.CompanyMasterList[i].ReConnectionFee + "</td>");
+                    tr.append("<td>" + model.CompanyMasterList[i].InstallationCharges + "</td>");
+                    tr.append("<td><a href=Edit?CompanyId=" + model.CompanyMasterList[i].Id + ">Edit</a> | <a href=Delete?CompanyId=" + model.CompanyMasterList[i].Id + ">Delete</a></td>");
+
+                    $('table').append(tr);
+                }
+                $('#EmpInfo').DataTable();
+                //var row = $("#tblCompanys tr:last-child").removeAttr("style").clone(true);
+                //$("#tblCompanys tr").not($("#tblCompanys tr:first-child")).remove();
+                //$.each(model.CompanyMasterList, function () {
+                //    var Company = this;
+                //    $("td", row).eq(0).html(Company.CityName);
+                //    $("td", row).eq(1).html(Company.CompanyName);
+                //    $("td", row).eq(2).html(Company.Address);
+                //    $("td", row).eq(3).html(Company.LatePaymentFee);
+                //    $("td", row).eq(4).html(Company.MinimumGasCharges);
+                //    $("td", row).eq(5).html(Company.ReConnectionFee);
+                //    $("td", row).eq(6).html(Company.InstallationCharges);
+                //    $("td", row).eq(7).html('<a href=Edit?CompanyId=' + Company.Id + '>Edit</a> | <a href=Delete?CompanyId=' + Company.Id + '>Delete</a>');
+                //    $("#tblCompanys").append(row);
+                //    row = $("#tblCompanys tr:last-child").clone(true);
+                //});
+
+                //$(".Pager").ASPSnippets_Pager({
+                //    ActiveCssClass: "current",
+                //    PagerCssClass: "pager",
+                //    PageIndex: model.PageIndex,
+                //    PageSize: model.PageSize,
+                //    RecordCount: model.RecordCount
+                //});
+            }
+        };
+    </script>*@
+
+
+

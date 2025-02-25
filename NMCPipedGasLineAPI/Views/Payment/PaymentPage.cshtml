@@ -1,0 +1,323 @@
+﻿@model NMCPipedGasLineAPI.Models.Payment
+@{
+    ViewBag.Title = "PaymentPage";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+}
+
+
+
+
+@using (Html.BeginForm("PaymentPage", "Payment", new { @id = "redg" }))
+{
+
+
+    @*@Html.AntiForgeryToken()*@
+
+    if (ViewBag.Error != null)
+    {
+
+        <div style="color:red;">
+
+            @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+        </div>
+
+    }
+
+    <div class="form-horizontal payment_cls">
+        <h4>Payment</h4>
+        <hr />
+
+        @if (Model.BillId != "")
+        {
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="inputEmail4">Receipt No.</label>
+                    @Html.TextBoxFor(model => model.ReceiptNo, new { @class = "form-control", @readonly = "readonly" })
+
+
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputPassword4">Date</label>
+                    @Html.TextBoxFor(model => model.BillDate, new { @class = "form-control", @placeholder = "BillDate", @readonly = "readonly" })
+                </div>
+
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="inputEmail4">Bill No.</label>
+                    @Html.TextBoxFor(model => model.BillNo, new { @class = "form-control", @readonly = "readonly" })
+
+
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputPassword4">Society</label>
+                    @Html.TextBoxFor(model => model.Society, new { @class = "form-control", @placeholder = "Society", @readonly = "readonly" })
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="inputEmail4">Receipt No.</label>
+                    @Html.TextBoxFor(model => model.ReceiptNo, new { @class = "form-control", @readonly = "readonly" })
+
+
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputPassword4">Society</label>
+                    @Html.TextBoxFor(model => model.Society, new { @class = "form-control", @placeholder = "Society", @readonly = "readonly" })
+                </div>
+
+
+            </div>
+        }
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="inputEmail4">Address</label>
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @readonly = "readonly" })
+
+                @Html.HiddenFor(model => model.CustNumber)
+                @Html.HiddenFor(model => model.CutomerName)
+                @Html.HiddenFor(model => model.SecurityId)
+                @Html.HiddenFor(model => model.MerchantId)
+                @Html.HiddenFor(model => model.ChecksumKey)
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputPassword4">Balance Due</label>
+                @Html.TextBoxFor(model => model.BalanceDue, new { @class = "form-control", @placeholder = "BalanceDue", @readonly = "readonly" })
+            </div>
+            @if (Model.istxt == true)
+            {
+
+                <div class="form-group col-md-3">
+                    <label for="inputEmail4">Transaction Free</label>
+                    @Html.TextBoxFor(model => model.TransactionFree, new { @class = "form-control", @placeholder = "Transaction Free", @readonly = "readonly" })
+                </div>
+            }
+            @*else
+            {
+                <div class="form-group col-md-3">
+                    <label for="inputPassword4">Total Amount (INR)</label>
+                    @Html.TextBoxFor(model => model.TotalAmount, new { @class = "form-control", @placeholder = "Total Amount", @readonly = "readonly" })
+                </div>
+            }*@
+
+
+        </div>
+
+
+
+
+        <div class="form-row">
+            @*@if (Model.istxt == true)
+            {*@
+            <div class="form-group col-md-3">
+                <label for="inputEmail4">Amount (INR)</label>
+                @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", onkeypress = "return isNumberKey(event)", @placeholder = "Amount", @id = "Amountid"})
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+            </div>
+            @*}*@
+
+                <div class="form-group col-md-3">
+                    <label for="inputEmail4">Total Amount (INR)</label>
+                    @Html.TextBoxFor(model => model.TotalAmount, new { @class = "form-control", @placeholder = "Total Amount", @readonly = "readonly" })
+                   
+                    @Html.HiddenFor(model => model.closingBalance)
+                    @Html.HiddenFor(model => model.latefee)
+                    @Html.HiddenFor(model => model.PaymentDue)
+                    @Html.HiddenFor(model => model.BillId)
+                    @Html.HiddenFor(model => model.CustomerID)
+                    @Html.HiddenFor(model => model.GodownId)
+                    @Html.HiddenFor(model => model.UniqueReceiptNo)
+                    @Html.HiddenFor(model => model.Number)
+
+
+
+                </div>
+
+
+
+        </div>
+
+
+        @if (ViewBag.Error1 != null)
+        {
+
+            <div style="color:red;">
+
+                @(ViewBag.Error1 != null ? ViewBag.Error1.ToString() : "")
+            </div>
+
+        }
+
+        @if (ViewBag.Error != null)
+        {
+
+            <div style="color:red;">
+
+                @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+            </div>
+
+        }
+
+
+        <label style="color:Red" id="messageId"></label>
+
+
+        <div class="form-group">
+
+            <div class="center">
+                <a class="mr-2 mb-2 d-block" target="_blank" href="~/Payment/TermsCondition">Terms & Conditions</a>
+
+                <a href='@Url.Action("PaymentHistory", "Payment")' class="mr-2 btn btn-dark mb-2">Go Back</a>
+
+                <input type="button" value="Continue to Secure Payment" onclick="confirmUser()" class="mr-2 btn btn-light-success mb-2" />
+
+            </div>
+        </div>
+
+        @Html.Raw(ViewBag.OpenWindowWithHtml)
+
+
+
+
+
+    </div>
+
+}
+    
+<script src="https://pgi.billdesk.com/payments-checkout-widget/src/app.bundle.js"></script>
+
+<script>
+
+    function onchangeevent() {
+      
+    }
+
+    $("#Amountid").on("keyup", function () {
+      //  alert("change");
+        var A = $('#Amountid').val()
+        var T = $('#TotalAmount').val()
+        var Tb = $('#TransactionFree').val()
+
+        var Ctd = {};
+        Ctd.Amount = A;
+        Ctd.TotalAmount = T;
+        Ctd.TransactionFree = Tb;
+        //alert(Ctd.Amount);
+        //alert(Ctd.TotalAmount);
+        //alert(Ctd.TransactionFree);
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("CalculateTransactionFee", "Payment")',
+            data: '{payment: ' + JSON.stringify(Ctd) + '}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+                $("#TotalAmount").val(response.TotalAmount);
+                $("#TransactionFree").val(response.TransactionFee);
+            }
+        });
+
+    });
+
+    function isNumberKey(evt) {
+       
+  var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+
+    function confirmUser() {
+
+        if ($.trim($('#Amountid').val()) == '0') {
+            isValid = false;
+            $('#Amountid').addClass('error');
+            $('#messageId').text("Please enter amount greater than 0.").insertAfter("#Amountid");
+            return true;
+        } else {
+
+            var c = $('#CustomerID').val()
+            var A = $('#Amountid').val()
+            var TAmt = $('#TotalAmount').val()
+            var B = $('#BillId').val()
+            var T = $('#TransactionFree').val()
+            var Ta = $('#CutomerName').val()
+            var Tb = $('#CustNumber').val()
+            var TxtMerchantId = $('#MerchantId').val()
+            var TxtSecurityId = $('#SecurityId').val()
+            var TxtChecksumKey = $('#ChecksumKey').val()
+            //alert(Tb)
+            var Ctd = {};
+            Ctd.CustomerID = c
+            Ctd.Amount = A
+            Ctd.BillId = B
+            Ctd.TransactionFree = T
+            Ctd.CustNumber = Tb;
+            Ctd.CutomerName = Ta;
+            Ctd.TotalAmount = TAmt;
+            Ctd.MerchantId = TxtMerchantId;
+            Ctd.SecurityId = TxtSecurityId;
+            Ctd.ChecksumKey = TxtChecksumKey;
+            //alert(JSON.stringify(Ctd))
+
+             $.ajax({
+                type: "POST",
+                url: '@Url.Action("PaymentPage", "Payment")',
+                 data: '{objPayment: ' + JSON.stringify(Ctd) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                 success: function (response) {
+
+                     if (response.param1 == "1") {
+                         window.location.href = "https://nmcadmin.azurewebsites.net/payment/login";
+                     }
+                     if (response.param1 == "2") {
+                         isValid = false;
+                         $('#Amountid').addClass('error');
+                         $('#messageId').text(response.param2).insertAfter("#Amountid");
+                     }
+                     if (response.param1 == "3") {
+                         isValid = false;
+                         $('#Amountid').addClass('error');
+                         $('#messageId').text("Please enter amount greater than 0.").insertAfter("#Amountid");
+                     }
+                     else {
+                        
+                         bdPayment.initialize({
+                             "msg": response.param1,
+                             "options": {
+                                 "txtPayCategory":"CREDIT"
+                             },
+                             "callbackUrl": response.param2
+                         });
+                     }
+                },
+                 error: function (error) {
+                     alert(error)
+                 }
+            });
+
+            //$("#redg").submit();
+            return true;
+        }
+
+    }
+
+
+
+</script>
+
+@section Scripts {
+    
+    @Scripts.Render("~/bundles/jqueryval")
+}

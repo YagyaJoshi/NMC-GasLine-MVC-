@@ -1,0 +1,65 @@
+﻿@model NMCPipedGasLineAPI.Models.CompanyPayment
+
+@{
+    /**/
+
+    ViewBag.Title = "CompaniesPaymentSetup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Company wise payment</h2>
+
+@using (Html.BeginForm("CompaniesPaymentSetup", "Company", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+    <div class="form-row">
+        @Html.HiddenFor(m => m.Id)
+        <div class="form-group col-md-6">
+            <label for="inputCompany">Company<i class="text-danger">*</i></label>
+            @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.Company, "Id", "CompanyName"), "Please Select Company", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="inputMerchantId">Merchant Id<i class="text-danger">*</i></label>
+            @Html.TextBoxFor(model => model.MerchantId, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MerchantId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputSecurityID">Security Id<i class="text-danger">*</i></label>
+            @Html.TextBoxFor(model => model.SecurityId, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SecurityId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputChecksumKey">ChecksumKey<i class="text-danger">*</i></label>
+            @Html.TextBoxFor(model => model.ChecksumKey, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ChecksumKey, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-12 d-flex justify-content-end px-0">
+            <a href='@Url.Action("CompaniesPaymentSetupList", "Company")' class="mr-2 btn btn-dark">Cancel</a>
+
+            @if (Session["RoleName"].ToString() == "Super Admin")
+            {
+                <input type="submit" value="Save" class="btn btn-dark-success" />
+            }
+        </div>
+    </div>
+    @*<div class="form-group">
+            <div class="col-md-12 d-flex justify-content-end px-0">
+                <input id="button" type="submit" value="Create" class="btn btn-dark-success" />
+            </div>
+        </div>*@
+</div>
+}

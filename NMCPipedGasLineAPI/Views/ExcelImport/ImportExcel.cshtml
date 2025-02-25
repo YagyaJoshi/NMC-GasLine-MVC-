@@ -1,0 +1,325 @@
+﻿@model NMCPipedGasLineAPI.Models.ImCustomer
+@using System.Data;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!--[if !IE]><!-->
+<style type="text/css">
+
+
+    /* Generic Styling, for Desktops/Laptops */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    /* Zebra striping */
+    tr:nth-of-type(odd) {
+        background: #eee;
+    }
+
+    th {
+        background: #333;
+        color: white;
+        font-weight: bold;
+    }
+
+    td, th {
+        padding: 6px;
+        border: 1px solid #ccc;
+        text-align: left;
+    }
+    /*
+        Max width before this PARTICULAR table gets nasty
+        This query will take effect for any screen smaller than 760px
+        and also iPads specifically.
+        */
+    @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+        /* Force table to not be like tables anymore */
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+            /* Hide table headers (but not display: none;, for accessibility) */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+        tr {
+            border: 1px solid #ccc;
+        }
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+        }
+
+            td:before {
+                /* Now like a table header */
+                position: absolute;
+                /* Top/left values mimic padding */
+                top: 6px;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+            }
+            /*
+         Label the data
+         */
+            td:before {
+                content: attr(data-title);
+            }
+    }
+</style>
+
+<!--<![endif]-->
+@using (Html.BeginForm("ImportExcel", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    <h4>Customer Import</h4>
+    <hr />
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputCompany">Company<i class="text-danger">*</i></label>
+            @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.Company, "Id", "CompanyName"), "Please Select Company", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputArea">Area<i class="text-danger">*</i></label>
+            @Html.DropDownListFor(m => m.AreaId, new SelectList(Model.Area, "AreaId", "AreaName"), "Please Select Area", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputGoDown">Society<i class="text-danger">*</i></label>
+            @Html.DropDownListFor(model => model.GodownId,
+                  new SelectList(Model.GoDown, "Id", "Name"), "Please Select Society", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.GodownId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputExcel">Excel file</label>
+            <div class="custom-file">
+                @*class="custom-file-input"*@   @*class="custom-file-label"*@
+                <input type="file" style="color:green;"  id="FileUpload1" name="FileUpload1">
+                @*<label  for="customFile">File Upload</label>*@
+                <p class="text-danger">Please Upload Files in .xls, .xlsx  format</p>
+            </div>
+            @if (ViewBag.Error != null)
+            {
+
+            <div style="color:red;">
+                @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+            </div>
+
+            }
+        </div>
+    </div>
+    
+
+    <div class="form-group">
+        <div class="col-md-12 d-flex justify-content-end px-0">
+            <input type="submit" value="Import" class="btn btn-dark-success" />
+        </div>
+    </div>
+
+
+
+
+}
+<script type="text/javascript">
+    window.onload = window.history.forward(0);
+    $(function () {
+        $("select").each(function () {
+            if ($(this).find("option").length <= 1) {
+                $(this).attr("disabled", "disabled");
+            }
+        });
+
+        $("select").change(function () {
+            var value = 0;
+            if ($(this).val() != "") {
+                value = $(this).val();
+            }
+            var id = $(this).attr("id");
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("MasterData", "Home")',
+                data: '{type: "' + id + '", value: "' + value + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var dropDownId;
+                    //alter(JSON.stringify(response.GoDown))
+                    var list;
+                    switch (id) {
+                        case "CompanyId":
+                            dropDownId = "#AreaId";
+                            list = response.Area;
+                            DisableDropDown("#AreaId");
+                            DisableDropDown("#GodownId");
+                            PopulateDropDown("#AreaId", list);
+                            break;
+                        case "AreaId":
+
+                            dropDownId ="#GodownId";
+                            list = response.GoDown;
+                            DisableDropDown("#GodownId");
+                            PopulateDropDown("#GodownId", list);
+                            break;
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+
+    function DisableDropDown(dropDownId) {
+        $(dropDownId).attr("disabled", "disabled");
+        $(dropDownId).empty().append('<option selected="selected" value="0">Please select</option>');
+    }
+
+    function PopulateDropDown(dropDownId, list) {
+        if (list != null && list.length > 0) {
+            $(dropDownId).removeAttr("disabled");
+            $.each(list, function () {
+                $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+            });
+        }
+    }
+
+    $(function () {
+        if ($("#CountryId").val() != "" && $("#StateId").val() != "" && $("#CityId").val() != "" && $("#AreaId").val() != "" && $("CompanyId").val() !="") {
+            var message = "GoDown: " + $("#GoDownId option:selected").text();
+            message += "\nCompany: " + $("#CompanyId option:selected").text();
+            message += "\nArea: " + $("#AreaId option:selected").text();
+
+        }
+    });
+
+        function selectddl(value, id)
+    {
+        $.ajax({
+                type: "POST",
+                url: '@Url.Action("MasterData", "Home")',
+                data: '{type: "' + id + '", value: "' + value + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var dropDownId;
+                    //alter(JSON.stringify(response.GoDown))
+                    var list;
+                    switch (id) {
+                        case "CompanyId":
+                            dropDownId = "#AreaId";
+                            list = response.Area;
+                            DisableDropDown("#AreaId");
+                            DisableDropDown("#GodownId");
+                            PopulateDropDown("#AreaId", list);
+                            break;
+                        case "AreaId":
+
+                            dropDownId ="#GodownId";
+                            list = response.GoDown;
+                            DisableDropDown("#GodownId");
+                            PopulateDropDown("#GodownId", list);
+                            break;
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+
+    $(document).ready(function () {
+       
+        @if(@Model.CompanyName != null)
+        { <text>
+      
+      
+            selectddl('@Model.CompanyId',$("#CompanyId").attr("id"));
+        </text>
+        }
+    });
+
+</script>
+
+@*<div>
+        <table id="tablid">
+
+            @if (ViewBag.Data != null)
+            {
+                <thead>
+
+                    @foreach (DataColumn column in (ViewBag.Data as System.Data.DataTable).Columns)
+                    {
+                    <th>@column.ColumnName.ToUpper()</th>
+
+
+                }
+                    </thead>
+                    if ((ViewBag.Data as System.Data.DataTable).Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in (ViewBag.Data as System.Data.DataTable).Rows)
+                        {
+
+                            <tr>
+
+                                @foreach (DataColumn column in (ViewBag.Data as System.Data.DataTable).Columns)
+                                {
+                                    <td data-title='@column.ColumnName'>
+
+                                        @dr[column].ToString()
+                                    </td>
+                                }
+
+
+
+
+                            </tr>
+
+                        }
+
+                    }
+                    else
+                    {
+                        int count = (ViewBag.Data as System.Data.DataTable).Columns.Count;
+                        <tr>
+
+                            <td colspan='@count' style="color:red;">
+
+                                No Data Found.
+                            </td>
+
+
+
+                        </tr>
+
+                    }
+
+                }
+                else
+                {
+
+                }
+        </table>
+    </div>*@

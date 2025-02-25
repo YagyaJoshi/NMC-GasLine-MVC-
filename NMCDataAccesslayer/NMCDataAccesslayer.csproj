@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3C4607F4-3AE1-425F-AF0F-BBD592D8E1C9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NMCDataAccesslayer</RootNamespace>
+    <AssemblyName>NMCDataAccesslayer</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BL\AreaBL.cs" />
+    <Compile Include="BL\BankBL.cs" />
+    <Compile Include="BL\CompanyBL.cs" />
+    <Compile Include="BL\CustomerBL.cs" />
+    <Compile Include="BL\CustomerLoginBL.cs" />
+    <Compile Include="BL\GodownBL.cs" />
+    <Compile Include="BL\StockItemBL.cs" />
+    <Compile Include="BL\UserBL.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="DAL\AreaDAL.cs" />
+    <Compile Include="DAL\BankDAL.cs" />
+    <Compile Include="DAL\CompanyDAL.cs" />
+    <Compile Include="DAL\CustomerDAL.cs" />
+    <Compile Include="DAL\CustomerLoginDAL.cs" />
+    <Compile Include="DAL\GodownDAL.cs" />
+    <Compile Include="DAL\StockItemDAL.cs" />
+    <Compile Include="DAL\UserDAL.cs" />
+    <Compile Include="DataModel\AreaDataModel.cs" />
+    <Compile Include="DataModel\BankData.cs" />
+    <Compile Include="DataModel\BillTypeData.cs" />
+    <Compile Include="DataModel\ChangPwDataModel.cs" />
+    <Compile Include="DataModel\CityDataModel.cs" />
+    <Compile Include="DataModel\CompanyDataModel.cs" />
+    <Compile Include="DataModel\CountryDataModel.cs" />
+    <Compile Include="DataModel\CustLoginDataModel.cs" />
+    <Compile Include="DataModel\CustomerBillInformationData.cs" />
+    <Compile Include="DataModel\CustomerDataModel.cs" />
+    <Compile Include="DataModel\CustomerLoginDataModel.cs" />
+    <Compile Include="DataModel\CustomerPaymentDataModel.cs" />
+    <Compile Include="DataModel\GodownAreaDataModel.cs" />
+    <Compile Include="DataModel\GodownDataModel.cs" />
+    <Compile Include="DataModel\PaymentDataModel.cs" />
+    <Compile Include="DataModel\PaymentModeDataModel.cs" />
+    <Compile Include="DataModel\RoleDataModel.cs" />
+    <Compile Include="DataModel\SalesTransactionDataModel.cs" />
+    <Compile Include="DataModel\SalesTransactionItemDataModel.cs" />
+    <Compile Include="DataModel\StateDataModel.cs" />
+    <Compile Include="DataModel\StateMasterDataModel.cs" />
+    <Compile Include="DataModel\StockItemGasRateDataModel.cs" />
+    <Compile Include="DataModel\StockItemMasterDataModel.cs" />
+    <Compile Include="DataModel\CustomerReading.cs" />
+    <Compile Include="DataModel\StockItemRateDataModel.cs" />
+    <Compile Include="DataModel\UserDataModel.cs" />
+    <Compile Include="DataProviderFactory\DBManager.cs" />
+    <Compile Include="Helper\BMSecurity3DES.cs" />
+    <Compile Include="Helper\Email.cs" />
+    <Compile Include="Helper\Enum.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Owin.Security">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="RestSharp">
+      <Version>106.6.10</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

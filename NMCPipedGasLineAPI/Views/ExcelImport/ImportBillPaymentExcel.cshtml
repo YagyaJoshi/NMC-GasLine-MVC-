@@ -1,0 +1,118 @@
+﻿@model NMCPipedGasLineAPI.Models.ImCustomer
+@using System.Data;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!--[if !IE]><!-->
+<style type="text/css">
+
+
+    /* Generic Styling, for Desktops/Laptops */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    /* Zebra striping */
+    tr:nth-of-type(odd) {
+        background: #eee;
+    }
+
+    th {
+        background: #333;
+        color: white;
+        font-weight: bold;
+    }
+
+    td, th {
+        padding: 6px;
+        border: 1px solid #ccc;
+        text-align: left;
+    }
+    /*
+        Max width before this PARTICULAR table gets nasty
+        This query will take effect for any screen smaller than 760px
+        and also iPads specifically.
+        */
+    @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+        /* Force table to not be like tables anymore */
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+            /* Hide table headers (but not display: none;, for accessibility) */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+        tr {
+            border: 1px solid #ccc;
+        }
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+        }
+
+            td:before {
+                /* Now like a table header */
+                position: absolute;
+                /* Top/left values mimic padding */
+                top: 6px;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+            }
+            /*
+         Label the data
+         */
+            td:before {
+                content: attr(data-title);
+            }
+    }
+</style>
+
+<!--<![endif]-->
+@using (Html.BeginForm("ImportBillPaymentExcel", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    <h4>Customer Import</h4>
+    <hr />
+
+    <div class="form-row">
+     
+        <div class="form-group col-md-6">
+            <label for="inputExcel">Excel file</label>
+            <div class="custom-file">
+               <input type="file" style="color:green;" id="FileUpload1" name="FileUpload1">
+               <p class="text-danger">Please Upload Files in .xls, .xlsx  format</p>
+            </div>
+            @if (ViewBag.Error != null)
+            {
+
+                <div style="color:red;">
+
+                    @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+                </div>
+
+            }
+        </div>
+   
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-12 d-flex justify-content-end px-0">
+            <input type="submit" value="Import" class="btn btn-dark-success" />
+        </div>
+    </div>
+
+
+}
+

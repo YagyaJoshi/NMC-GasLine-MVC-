@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "ReadingHistoryList";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("#myTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                @*"url": '@Url.Action("CustomerReadingHistoryList", "Payment")',*@
+                "url": "/Payment/CustomerReadingHistoryList",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "BillNo", "name": "BillNo", "autoWidth": true },
+                { "data": "BillDate", "name": "BillDate", "autoWidth": true },
+                { "data": "CurrentRedg", "name": "CurrentRedg", "autoWidth": true },
+                { "data": "CurrentRedgDate", "name": "CurrentRedgDate", "autoWidth": true },
+                 {
+                    data: "MeterRedgImage", "bSearchable": false,
+                    bSortable: false,
+                    mRender: function (data, type, row) {
+                      Details = "Image";
+                        return '<a href ="' + data + '"  target = _blank>View Image</a>'
+
+                    }
+                },
+            ]
+        });
+
+    });
+</script>
+
+<div class="form-horizontal">
+    <h2>Customer Reading History</h2>
+
+
+
+    <br />
+    <table id="myTable" class="table-full table table-bordered table-responsive text-nowrap">
+        <thead>
+            <tr>
+                <th>Bill No.</th>
+                <th>Bill Date</th>
+                <th>Reading</th>
+                <th>Reading Date</th>
+                <th> Meter Image</th>
+            </tr>
+        </thead>
+    </table>
+    <a href='@Url.Action("CustomerReadingHistory","Payment")' class="mr-2 btn btn-dark">Back To List</a>
+    <style media="all" type="text/css">
+        .alignRight {
+            text-align: right;
+        }
+    </style>
+</div>
+
+
+

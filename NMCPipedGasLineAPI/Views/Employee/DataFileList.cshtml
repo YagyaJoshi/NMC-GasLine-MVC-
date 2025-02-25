@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "DataFileList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<script>
+  
+
+    $(document).ready(function () {
+        $("#myTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": false, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/Employee/LoadDataFile",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "filedate", "name": "filedate", "autoWidth": true, "bSortable": false},
+                { "data": "Name", "name": "Name", "autoWidth": true, "sClass": "alignLeft", "bSortable": false },
+                {
+                    data: "BillFileName", "bSearchable": false,
+                    bSortable: false,
+                    mRender: function (data, type, row) {
+                        if (data != '') {
+                            return '<a href=DownloadFile?bill=' + data + '&payment= class="btn btn-sm btn-light-success">Mobile Bill File</a>'
+                        }
+                        return ''
+                    }
+                },
+                {
+                    data: "BillFileName", "bSearchable": false,
+                    bSortable: false,
+                    mRender: function (data, type, row) {
+                        if (data != '') {
+                        return '<a href=BillDownload?FileName=' + data + ' class="btn btn-sm btn-light-success">Bill Download</a>'
+                        }
+                        return ''
+                    }
+                },
+                
+                {
+                    data: "PaymentFileName", "bSearchable": false,
+                    bSortable: false,
+                    mRender: function (data, type, row) {
+                        if (data != '') {
+                            return '<a href=DownloadFile?bill=&payment=' + data + ' class="btn btn-sm btn-light-success">Mobile Payment File</a>'
+                        }
+                        return ''
+                    }
+                }
+                ,
+
+                {
+                    data: "PaymentFileName", "bSearchable": false,
+                    bSortable: false,
+                    mRender: function (data, type, row) {
+                        if (data != '') {
+                            return '<a href=PaymentDownload?FileName=' + data + ' class="btn btn-sm btn-light-success">Payment Download</a>'
+                        }
+                        return ''
+                    }
+                }
+                
+                
+            ]
+        });
+    });
+</script>
+
+@if (ViewBag.Error != null)
+{
+
+    <div style="color:red;">
+
+        @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+    </div>
+
+}
+
+<br />
+<table id="myTable" class="table-full table table-bordered table-responsive text-nowrap">
+    <thead>
+        <tr>
+            <th>CreatedAt</th>
+            <th>Name</th>
+            <th>Mobile Bill File</th>
+            <th>Bill</th>
+            <th>Mobile Payment File</th>
+            <th>Payment</th>
+        </tr>
+    </thead>
+</table>
+
+
+
+
+

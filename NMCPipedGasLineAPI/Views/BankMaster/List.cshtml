@@ -1,0 +1,72 @@
+﻿@model IEnumerable<NMCPipedGasLineAPI.Models.BankMaster>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style media="all" type="text/css">
+    .alignRight {
+        text-align: right;
+    }
+</style>
+<div style="float:right"><button class="btn btn-dark-success" onclick="location.href='@Url.Action("Index", "BankMaster")';return false;">Create New</button></div>
+
+<br /><br />
+<script>
+    window.onload = window.history.forward(0);
+
+    function confirmUser(data) {
+        var ask = confirm("Are you sure you want to InActive this");
+        if (ask) {
+            window.location = "Delete?BankId=" + data;
+        }
+    }
+
+
+
+    $(document).ready(function () {
+        $("#myTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/BankMaster/LoadData",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "BankName", "name": "BankName", "autoWidth": true },
+                {
+                    data: "Id", "bSearchable": false,
+                    bSortable: false,
+                    mRender: function (data, type, row) {
+
+                        return '<a href=Edit?BankId=' + data + ' class="btn btn-light-success btn-sm   " >Edit</a>'
+                            + ' <a href=# class="btn btn-dark-success btn-sm" onclick=confirmUser("' + data + '")>Inactive</a>'
+                    }
+                }
+            ]
+        });
+    });
+</script>
+
+@if (ViewBag.Error != null)
+{
+    <div style="color:green;">
+        @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+    </div>
+
+}
+
+<br />
+<table id="myTable" class="table-full table table-bordered table-responsive text-nowrap">
+    <thead>
+        <tr>
+            <th>Bank Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+</table>

@@ -1,0 +1,460 @@
+﻿@*@model NMCPipedGasLineAPI.Models.CustomerLogin
+@{
+    ViewBag.Title = "CustomerCreate";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+}
+
+@using (Html.BeginForm("CustomerCreate", "Payment", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "Login" }))
+{
+    @Html.AntiForgeryToken()
+    if (TempData["MessageFailed"] != null && TempData["MessageFailed"] != "")
+    {
+        <div id="lbl" class="alert alert-danger">
+            @TempData["MessageFailed"]
+        </div>
+    }
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="page-header">
+            <p><b>Customer Create</b></p>
+
+        </div>
+        <div class="col-md-12" id="bp_info_div">
+            <div style="clear:both"></div>
+            @if (string.IsNullOrEmpty(Model.Name) && !Model.isemail)
+            {
+                <div id="divCust">
+                    <h2>Step 1</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Company<span class="text-danger">*</span></label>
+                                @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.Company, "Id", "CompanyName"), "Please Select Company", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Godown<span class="text-danger">*</span></label>
+                                @Html.DropDownListFor(m => m.GodownId,
+                   new SelectList(Model.GoDown, "Id", "Name"), "Please Select Society", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.GodownId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Phone</label>
+                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "1234567890" })
+                                @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                            <label id="VaildPhone" style="display:none;color:red">Please enter either emailid or phone</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>EmailId</label>
+                                @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", placeholder = "abc@gmail.com" })
+                                @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
+                                <label id="VaildEmail" style="display:none;color:red">Please enter either emailid or phone</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                            <div class="form-group">
+                                <label>CustomerId</label>
+                                @Html.TextBoxFor(m => m.CustomerId, new { @class = "form-control", placeholder = "bce123" })
+                                @Html.ValidationMessageFor(m => m.CustomerId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label></label> <br />
+                                <button class="btn btn-primary" name="Search" id="btnSearch" value="Next" type="submit">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Name) && !Model.isemail)
+            {
+                <div id="password">
+                    <h2>Step 2</h2>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" id="Name" class="form-control" value="@Model.Name" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Address</label>
+                                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "address.." })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" id="PhoneNo" class="form-control" value="@Model.Phone" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>EmailId</label>
+                                <input type="text" id="email" class="form-control" value="@Model.EmailId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3" hidden>
+                            <div class="form-group">
+                                <label>CustomerId</label>
+                                <input type="text" id="CustId" class="form-control" value="@Model.CustomerId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Password<span class="text-danger">*</span></label>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "******", maxlength = "8" })
+                                <span id="errorpwd" class="text-danger">Please enter your password</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label></label>
+                                <button class="btn btn-primary" name="Create" id="btnSubmit" value="Register" type="button">Register</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Model.isemail)
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>EmailId</label>
+                            <input type="text" id="emailIs" class="form-control" value="@Model.EmailId" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <a href="~/Payment/GetPassword?email=@Model.EmailId">Forgot Password</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $("#errorpwd").hide();
+    });
+    setTimeout(function () { $("#lbl").hide(); }, 5000);
+    $("#CompanyId").change(function () {
+        var value = 0;
+        if ($(this).val() != "") {
+            value = $(this).val();
+        }
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GodownData", "Payment")',
+            data: '{value: "' + value + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $("#GodownId").empty().append('<option selected="selected" value="0">Please Select Society</option>');
+                $.each(response, function () {
+                    $("#GodownId").append($("<option></option>").val(this['Value']).html(this['Text']));
+                });
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    });
+
+    $("#btnSubmit").click(function () {
+        var EmailId = $("#email").val();
+        var Phone = $("#PhoneNo").val();
+        var CustomerId = $("#CustId").val();
+        var Password = $("#Password").val();
+        if (Password != null && Password != "") {
+            var customerLogin = { EmailId: EmailId, Phone: Phone, CustomerId: CustomerId, Password: Password };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GeneratePassword", "Payment")',
+                data: JSON.stringify(customerLogin),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var url = '@Url.Action("CustomerLogin", "Payment")';
+                    $(location).attr('href', url);
+                },
+                failure: function (response) {
+                    //alert(response.responseText);
+                },
+                error: function (response) {
+                    //alert(response.responseText);
+                }
+            });
+        }
+        else {
+            $("#errorpwd").show();
+            return false;
+        }
+    });
+</script>*@
+
+
+
+
+@model NMCPipedGasLineAPI.Models.CustomerLogin
+@{
+    ViewBag.Title = "CustomerCreate";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+}
+
+@using (Html.BeginForm("CustomerCreate", "Payment", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "Login" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="container step_one">
+        <div class="row">
+            <div class=" col-md-12 page-header">
+                @if (TempData["MessageFailed"] != null && TempData["MessageFailed"] != "")
+                {
+                    <div id="lbl" class="alert alert-danger">
+                        @TempData["MessageFailed"]
+                    </div>
+                }
+                <h1>Create Customer</h1> 
+            </div>
+            <div class="col-md-12" id="bp_info_div">
+                <div style="clear:both"></div>
+                @if (string.IsNullOrEmpty(Model.Name) && !Model.isemail)
+                {
+                <div id="divCust">
+                    <h2>Step 1</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Company<span class="text-danger">*</span></label>
+                                @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.Company, "Id", "CompanyName"), "Please Select Company", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Society<span class="text-danger">*</span></label>
+                                @Html.DropDownListFor(m => m.GodownId,
+                   new SelectList(Model.GoDown, "Id", "Name"), "Please Select Society", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.GodownId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Phone</label>
+                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "1234567890"  })
+                                @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                                @*<label id="VaildPhone" style="display:none;color:red">Please enter either emailid or phone</label>*@
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>EmailId</label>
+                                @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", placeholder = "abc@gmail.com" })
+                                @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
+                                @*<label id="VaildEmail" style="display:none;color:red">Please enter either emailid or phone</label>*@
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-md-3">
+            <div class="form-group">
+                <label>CustomerId</label>
+                @Html.TextBoxFor(m => m.CustomerId, new { @class = "form-control", placeholder = "bce123" })
+                @Html.ValidationMessageFor(m => m.CustomerId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <div class="form-group">
+                                <label></label>
+                                <button class="btn btn-primary" name="Search" id="btnSearch" value="Next" type="submit">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+                @if (!string.IsNullOrEmpty(Model.Name) && !Model.isemail)
+                {
+                    <div id="password">
+                        <h2>Step 2</h2>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" id="Name" class="form-control" value="@Model.Name"  />
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "address.." })
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Phone</label>
+                                    <input type="text" id="PhoneNo" class="form-control" value="@Model.Phone" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>EmailId</label>
+                                    <input type="text" id="email" class="form-control" value="@Model.EmailId" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4" hidden>
+                                <div class="form-group">
+                                    <label>CustomerId</label>
+                                    <input type="text" id="CustId" class="form-control" value="@Model.CustomerId" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Password<span class="text-danger">*</span></label>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "******", maxlength = "8" })
+                                    <span id="errorpwd" class="text-danger">Please enter your password</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 text-right">
+                            <div class="form-group">
+                                <label></label>
+                                <button class="btn btn-primary" name="Create" id="btnSubmit" value="Register" type="button">Register</button>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+                @if (Model.isemail)
+                {
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>EmailId</label>
+                            <input type="text" id="emailIs" class="form-control" value="@Model.EmailId" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <a href="~/Payment/GetPassword?email=@Model.EmailId">Forgot Password</a>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $("#errorpwd").hide();
+    });
+    setTimeout(function () { $("#lbl").hide(); }, 5000);
+    $("#CompanyId").change(function () {
+        var value = 0;
+        if ($(this).val() != "") {
+            value = $(this).val();
+        }
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GodownData", "Payment")',
+            data: '{value: "' + value + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $("#GodownId").empty().append('<option selected="selected" value="0">Please Select Society</option>');
+                $.each(response, function () {
+                    $("#GodownId").append($("<option></option>").val(this['Value']).html(this['Text']));
+                });
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    });
+
+    $("#btnSubmit").click(function () {
+        var EmailId = $("#email").val();
+        var Phone = $("#PhoneNo").val();
+        var CustomerId = $("#CustId").val();
+        var Password = $("#Password").val();
+        if (Password != null && Password != "") {
+            var customerLogin = { EmailId: EmailId, Phone: Phone, CustomerId: CustomerId, Password: Password };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GeneratePassword", "Payment")',
+                data: JSON.stringify(customerLogin),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var url = '@Url.Action("Login", "Payment")';
+                    $(location).attr('href', url);
+                },
+                failure: function (response) {
+                    //alert(response.responseText);
+                },
+                error: function (response) {
+                    //alert(response.responseText);
+                }
+            });
+        }
+        else {
+            $("#errorpwd").show();
+            return false;
+        }
+    });
+</script>

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<NMCPipedGasLineAPI.Models.CompanyMaster>
+
+@{
+    /**/
+
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style media="all" type="text/css">
+    .alignRight {
+        text-align: right;
+    }
+</style>
+@if (Session["RoleName"].ToString() == "Super Admin")
+{
+    <div style="float:right"><button class="btn btn-dark-success" onclick="location.href='@Url.Action("Index", "Company")';return false;">Create New</button></div>
+}
+<br /><br />
+<script>
+    window.onload = window.history.forward(0);
+    function confirmUser(data) {
+        var ask = confirm("Are you sure you want to InActive this");
+        if (ask) {
+            window.location = "Delete?CompanyId=" + data;
+        }
+    }
+
+    $(document).ready(function () {
+        $("#myTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/Company/LoadData",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "CreatedAt", "name": "CreatedAt", "autoWidth": true, "visible": false },
+               { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
+                 { "data": "CityName", "name": "CityName", "autoWidth": true },
+                { "data": "LatePaymentFee", "name": "LatePaymentFee", "autoWidth": true, "sClass": "alignRight" },
+                { "data": "MinimumGasCharges", "name": "MinimumGasCharges", "autoWidth": true, "sClass": "alignRight" },
+                { "data": "ReConnectionFee", "name": "ReConnectionFee", "autoWidth": true, "sClass": "alignRight" },
+                { "data": "InstallationCharges", "name": "InstallationCharges", "autoWidth": true, "sClass": "alignRight" },
+                {
+                    data: "Id", "bSearchable": false,
+                    bSortable: false,
+
+
+                    @if (Session["RoleName"].ToString() == "Super Admin")
+                    {<text>
+                    mRender: function (data, type, row) {
+
+                        return '<a href=Edit?CompanyId=' + data + ' class="btn btn-sm btn-light-success">Edit</a>'
+                            + ' <a href=# class="btn btn-sm btn-dark-success"  onclick=confirmUser("' + data + '")>Inactive</a>'
+                    }</text>
+                    }
+                     else
+                        {<text>
+
+                    mRender: function (data, type, row) {
+
+                        return '<a href=Edit?CompanyId=' + data + ' class="btn btn-sm btn-light-success">View</a>'
+
+                    }
+
+                            </text>
+                        }
+                }
+            ],
+            "order": [0, "desc"]
+        });
+    });
+</script>
+
+@if (ViewBag.Error != null)
+{
+
+    <div style="color:green;">
+
+        @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+    </div>
+
+}
+
+<br />
+
+<table id="myTable" class="table-full table-sm table table-bordered table-responsive text-nowrap">
+    <thead>
+        <tr>
+            <th style="display:none">CreatedAt</th>
+            <th>Company Name</th>
+
+            <th>City Name</th>
+            <th>Late Payment <br />Fee (Rs)</th>
+            <th>Minimum Gas <br /> Charges (Rs)</th>
+            <th>Re Connection <br /> Fee (Rs)</th>
+            <th>Installation <br /> Charges (Rs)</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+</table>

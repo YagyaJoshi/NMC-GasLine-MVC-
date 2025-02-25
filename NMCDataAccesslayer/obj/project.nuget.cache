@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "dgSpecHash": "tDk+1mDVD1SatUD/2DPffq8/AHpIT4F3b427f72M3QbJiplbn4L4hKNnsXlzTDF3Iu1rKqN8UFsS0MjmAaOPMw==",
+  "success": true,
+  "projectFilePath": "E:\\Projects\\NMC\\nmc\\NMCDataAccesslayer\\NMCDataAccesslayer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\PHP-13\\.nuget\\packages\\microsoft.owin\\4.0.0\\microsoft.owin.4.0.0.nupkg.sha512",
+    "C:\\Users\\PHP-13\\.nuget\\packages\\microsoft.owin.security\\4.0.0\\microsoft.owin.security.4.0.0.nupkg.sha512",
+    "C:\\Users\\PHP-13\\.nuget\\packages\\owin\\1.0.0\\owin.1.0.0.nupkg.sha512",
+    "C:\\Users\\PHP-13\\.nuget\\packages\\restsharp\\106.6.10\\restsharp.106.6.10.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'RestSharp' 106.6.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-9pq7-rcxv-47vq",
+      "libraryId": "RestSharp",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8",
+        ".NETFramework,Version=v4.8/win",
+        ".NETFramework,Version=v4.8/win-arm64",
+        ".NETFramework,Version=v4.8/win-x64",
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    }
+  ]
+}

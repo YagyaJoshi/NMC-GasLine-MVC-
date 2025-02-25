@@ -1,0 +1,103 @@
+﻿@model IEnumerable<NMCPipedGasLineAPI.Models.AreaMaster>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style media="all" type="text/css">
+    .alignRight {
+        text-align: right;
+    }
+</style>
+<div style="float:right"><button class="btn btn-dark-success" onclick="location.href='@Url.Action("Index", "Area")';return false;">Create New</button></div>
+
+<br /><br />
+<script>
+    window.onload = window.history.forward(0);
+
+    function confirmUser(data) {
+        var ask = confirm("Are you sure you want to InActive this");
+        if (ask) {
+            window.location = "Delete?AreaId=" + data;
+        }
+    }
+
+
+
+    $(document).ready(function () {
+        $("#myTable").DataTable({
+            "processing": false, // for show progress bar
+          
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/Area/LoadData",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "CreatedAt", "name": "CreatedAt", "autoWidth": true, "visible": false },
+                { "data": "AreaName", "name": "AreaName", "autoWidth": true },
+                { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
+                { "data": "EmployeeName", "name": "EmployeeName", "autoWidth": true, "bSortable": false},
+                //{ "data": "GodownName", "name": "GodownName", "autoWidth": true },
+                {
+                    data: "GodownName", "bSortable": false,
+                     mRender: function (data, type, row) {
+                         
+                         var j = ""
+                         if (data != "") {
+                             var arr = data.split(',');
+                             for (var i = 0; i < arr.length; i++) {
+                                 j += i + 1 + ' ' + arr[i] + '<br/>'
+                             }
+                         }
+                             return j
+                         
+                    }
+                },
+
+                {
+                    data: "AreaId", "bSearchable": false,
+                    bSortable: false,
+                    mRender: function (data, type, row) {
+
+                        return '<a href=Edit?AreaId=' + data + ' class="btn btn-light-success btn-sm   " >Edit</a>'
+                            + ' <a href=# class="btn btn-dark-success btn-sm" onclick=confirmUser("' + data + '")>Inactive</a>'
+                    }
+                }
+            ],
+            "order": [0, "desc"],
+            
+        });
+
+
+       
+    });
+</script>
+
+@if (ViewBag.Error != null)
+{
+    <div style="color:green;">
+        @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+    </div>
+
+}
+
+<br />
+<table id="myTable" class="table-full table table-bordered table-responsive text-nowrap">
+    <thead>
+        <tr>
+            <th style="display:none">CreatedAt</th>
+            <th>Area Name</th>
+            <th>Company Name</th>
+            <th>Employee Name</th>
+            @*<th>Society Name</th>*@
+            <th>Society Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+</table>

@@ -1,0 +1,71 @@
+﻿@model NMCPipedGasLineAPI.Models.CustomerBillInformation
+@{
+    ViewBag.Title = "BillHistory";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+}
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#myTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url":'@Url.Action("LoadData", "Payment")',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "BillNo", "name": "BillNo", "autoWidth": true },
+                { "data": "BillDate", "name": "BillDate", "autoWidth": true },
+                { "data": "Type", "name": "Type", "autoWidth": true },
+                { "data": "InvoiceValue", "name": "TotalAmt", "autoWidth": true },
+                
+
+                {
+                    data: { billid: "billid" }, "bSearchable": false, bSortable: false,
+
+
+                    mRender: function (data, type, row) {
+
+                        if (data.billid != "") {
+                            return '<a target=_blank href=ViewBill?BillId=' + data.billid + ' class="btn btn-sm btn-light-success">View Bill</a>'
+                        }
+                        else {
+                            return ''
+                        }
+                    }
+
+
+
+                }
+            ]
+        });
+
+
+
+    });
+</script>
+
+<div class="form-horizontal">
+
+    <h4>Bill History</h4>
+    <br />
+    <div class="table-responsive">
+        <table id="myTable" class="table-full table table-bordered text-nowrap">
+            <thead>
+                <tr>
+                    <th>Bill No.</th>
+                    <th>Bill Date</th>
+                    <th>Type</th>
+                    <th>Total Amt. (INR)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+</div>

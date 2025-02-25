@@ -1,0 +1,57 @@
+﻿@model NMCPipedGasLineAPI.Models.CustomerBillInformation
+@{
+    ViewBag.Title = "PaymentHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+        $("#paymnetTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url":'@Url.Action("LoadPaymentData", "Customer")',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "PaymentDate", "name": "PaymentDate", "autoWidth": true },
+                { "data": "CheckNo", "name": "CheckNo", "autoWidth": true },
+                { "data": "BankName", "name": "BankName", "autoWidth": true },
+                { "data": "AccountNo", "name": "AccountNo", "autoWidth": true },
+                { "data": "BankDetail", "name": "BankDetail", "autoWidth": true },
+                { "data": "ReceiptNo", "name": "ReceiptNo", "autoWidth": true },
+                { "data": "PaymentType", "name": "PaymentType", "autoWidth": true },
+                { "data": "Amount", "name": "Amount", "autoWidth": true }
+
+            ]
+        });
+    });
+</script>
+
+<div class="form-horizontal">
+    <h4>Payment History</h4>
+    <br />
+    <table id="paymnetTable" class="table-full table table-bordered table-responsive text-nowrap">
+        <thead>
+            <tr>
+                <th>Payment Date</th>
+                <th>Cheque No.</th>
+                <th>Bank Name</th>
+                <th>Account No.</th>
+                <th>Bank Detail</th>
+                <th>Receipt No.</th>
+                <th>Payment Type</th>
+                <th>Received Amount</th>
+            </tr>
+        </thead>
+    </table>
+    <a href="BillList?CustomerId=@Session["Customer"].ToString()" class="mr-2 btn btn-dark">Back To List</a>
+
+</div>

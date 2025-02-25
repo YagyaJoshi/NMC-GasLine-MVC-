@@ -1,0 +1,361 @@
+﻿
+
+@model NMCPipedGasLineAPI.Models.Payment
+
+
+@*<html>
+
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <style>
+            body {
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #333;
+                background-color: #183319;
+                padding-top: 30px;
+            }
+
+            .form-control {
+                display: block;
+                width: 100%;
+                height: 34px;
+                padding: 4px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                border-radius: 0px;
+            }
+
+            label {
+                display: inline-block;
+                max-width: 100%;
+                margin-bottom: 5px;
+                box-sizing: border-box;
+            }
+        </style>
+    </head>
+
+    <body>
+        <table style="max-width: 83vw;width: 100%;background-color: #FFFFFF;box-shadow: 0 0 15px rgba(0, 0, 0, 0.15), 0 0 1px 1px rgba(0, 0, 0, 0.1);border-radius: 10px;padding: 10px 0;width: 100%;margin: auto;border-collapse: collapse;vertical-align: top;" cellpadding="1" cellspacing="1">
+            <tbody>
+                <tr>
+                    @if (Model.Logimg != null && Model.Logimg != "")
+                    {
+                        <td colspan="100" style="padding-top: 15px;text-align: center;"> <img src="@Url.Content(Model.Logimg)" style="max-width:400px; width:100%"/> </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                </tr>
+                <tr>
+                    <td colspan="100" style="padding-top: 15px;">
+                        <p style="margin:0; font-size: 28px; color:#333; text-align:center; font-family: sans-serif;"> <strong>NMC PIPED GAS</strong> </p>
+                        <p style="margin:0; font-size: 28px; color:#333; text-align:center; font-family: sans-serif;"> <span><strong>COMPANY PVT. LTD.</strong> </span> </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="100" style="padding: 15px;">
+                        <p style="margin:0; font-size: 18px; color:#6a6a6a; text-align:center; font-family: sans-serif; line-height: 1.6;">4th FLoor, Nav Maharashtra House, 43 Shaniwar Peth,<br>Pune-411030, Tel. No. 9028222283/64/65<br>Contact: Accounts 9823328222, 9823328245, 9873353335</p>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="100" style="padding: 0 15px;">
+                      <br />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="100" style="padding: 15px;">
+                        <p style="margin:0; font-size: 18px; color:#6a6a6a; text-align:center; font-family: sans-serif; line-height: 1.6;">
+                            <strong>Receipt No.</strong>   @if (Model.ReceiptNo != null && Model.ReceiptNo != "")
+                            {@Model.ReceiptNo}
+                        </p>
+
+                    </td>
+                </tr>
+                 <tr>
+                <td colspan="100" style="padding: 0 15px;">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;margin-bottom: 20px;font-size: 21px;line-height: inherit;color: #333;border: 0;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px; text-align:center;">Bill Information</legend>
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td style="padding-right: 15px;padding-left: 15px;">
+                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                        @if (Model.BillDate != null && Model.BillDate != "")
+                        {@Model.BillDate}
+                    </label>
+                </td>
+                <td style="padding-right: 15px;padding-left: 15px;">
+                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Name</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                        @if (Model.CutomerName != null && Model.CutomerName != "")
+                        {@Model.CutomerName}
+                    </label>
+                </td>
+                <td style="padding-right: 15px;padding-left: 15px;"> <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Payment Mode</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">Online</label> </td>
+                <td style="padding-right: 15px;padding-left: 15px;">
+                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Bill No.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;background-color: #FFFFFF;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;color: #444444;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                        @if (Model.BillNo != null && Model.BillNo != "")
+                        {
+                            @Model.BillNo}
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="100" style="padding: 0 15px;">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;"></legend>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="100" style="padding: 15px;">
+                    <p style="margin:0; font-size: 18px; color:#6a6a6a; text-align:center; font-family: sans-serif; line-height: 1.6;">
+                        <strong>Bill Received: </strong>Rs.
+                        @Model.Amount
+                    </p>
+
+                </td>
+
+
+
+            </tr>
+
+
+            <tr>
+                <td colspan="100" style="padding: 0 15px;">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;"></legend>
+                </td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+            </tbody>
+        </table>
+
+
+    </body>
+
+    </html>*@
+
+
+
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>NMC PDF</title>
+</head>
+<body style="max-width: 100%; margin: 0; padding: 0; font-family: helvetica; font-size: 14px; line-height:1.42; color:#333; background-color:none; padding-top:30px;">
+    <table style="max-width: 83vw;width: 100%;background-color: #FFFFFF;padding: 10px 0;width: 100%;margin: auto;vertical-align: top;" cellpadding="1" cellspacing="1">
+        <tbody>
+            <tr>
+                <td colspan="100" style="padding-top: 15px;text-align: center;">
+                    <img src="@Url.Content(Model.Logimg)" style="max-width:400px; width:100%"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="100" style="padding-top: 15px;">
+                    <p style="margin:0; font-size: 28px; color:#333; text-align:center; font-family: sans-serif;">
+                        <strong>NMC PIPED GAS</strong>
+                    </p>
+                    <p style="margin:0; font-size: 28px; color:#333; text-align:center; font-family: sans-serif;">
+                        <span><strong>COMPANY PVT. LTD.</strong> </span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="100" style="padding: 15px;">
+                    <p style="margin:0; font-size: 18px; color:#6a6a6a; text-align:center; font-family: sans-serif; line-height: 1.6;">
+                        4th FLoor, Nav Maharashtra House, 43 Shaniwar Peth,<br>Pune-411030, Tel. No.
+                        9028222283/64/65<br>Contact: Accounts 9823328222, 9823328245, 9873353335
+                    </p>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="100" style="padding: 15px;">
+                    <p style="margin:0; font-size: 18px; color:#6a6a6a; text-align:center; font-family: sans-serif; line-height: 1.6;">
+                        <strong>Receipt No.</strong> @Model.ReceiptNo
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="100" style="padding: 0 15px;">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;margin-bottom: 20px;font-size: 21px;line-height: inherit;color: #333;border: 0;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px; text-align:center;">
+                        Bill Information
+                    </legend>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-right: 15px;padding-left: 15px;">
+                    <label style="display: inline-block;  max-width: 100%; margin-bottom: 5px; box-sizing: border-box; font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Date</label>
+                    <label style=" display: inline-block; max-width: 100%; margin-bottom: 5px; box-sizing: border-box;display: block; width: 100%; height: 34px;padding: 4px 12px; font-size: 14px; line-height: 1.42857143;
+            color: #555; background-color: #fff; background-image: none; border: 1px solid #ccc; border-radius: 0px;font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;
+            border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">@Model.BillDate</label>
+                </td>
+
+
+
+                <td style="padding-right: 15px;padding-left: 15px;">
+                    <label style="display: inline-block;  max-width: 100%; margin-bottom: 5px; box-sizing: border-box; font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Name</label>
+                    <label style=" display: inline-block; max-width: 100%; margin-bottom: 5px; box-sizing: border-box;display: block; width: 100%; height: 34px;padding: 4px 12px; font-size: 14px; line-height: 1.42857143;
+            color: #555; background-color: #fff; background-image: none; border: 1px solid #ccc; border-radius: 0px;font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;
+            border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">@Model.CutomerName</label>
+                </td>
+
+
+                <td style="padding-right: 15px;padding-left: 15px;">
+                    <label style=" display: inline-block; max-width: 100%; margin-bottom: 5px; box-sizing: border-box; font-size: 14px;
+                 color:#333; text-align:center; font-family: sans-serif;">Payment Mode</label>
+                    <label style="display: inline-block; max-width: 100%; margin-bottom: 5px; box-sizing: border-box;display: block;width: 100%; height: 34px; padding: 4px 12px;
+                  font-size: 14px; line-height: 1.42857143; color: #555; background-color: #fff; background-image: none; border: 1px solid #ccc; border-radius: 0px;font-size: 14px;
+                  font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;
+                  color: #999999;cursor: not-allowed;">Online</label>
+                </td>
+
+
+                <td style="padding-right: 15px;padding-left: 15px;">
+                    <label style="   display: inline-block; max-width: 100%; margin-bottom: 5px; box-sizing: border-box; font-size: 14px;
+                color:#333; text-align:center; font-family: sans-serif;">Bill No.</label>
+                    <label style=" display: inline-block; max-width: 100%; margin-bottom: 5px; box-sizing: border-box;display: block;
+            width: 100%; height: 34px; padding: 4px 12px; font-size: 14px; line-height: 1.42857143; color: #555; background-color: #fff;
+            background-image: none;border: 1px solid #ccc; border-radius: 0px;font-size: 14px;font-family: sans-serif;text-align: left;
+            border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;
+            color: #999999;cursor: not-allowed;">@Model.BillNo</label>
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <td colspan="100" style="padding: 0 15px;">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;">
+                    </legend>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="100" style="padding: 15px;">
+                    <p style="margin:0; font-size: 18px; color:#6a6a6a; text-align:center; font-family: sans-serif; line-height: 1.6;">
+                        <strong>Bill Received: </strong>Rs. @Model.Amount
+                    </p>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td colspan="100" style="padding: 0 15px;">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;">
+                    </legend>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+@*<body style="font-family:'Roboto', sans-serif;">
+        <table style="width:100%;max-width:420px;margin:auto;font-size:14px;">
+            <tbody>
+                <tr>
+
+
+
+                    <td style="padding-bottom:25px;">
+                        <h5 style="margin:0;font-size:24px;">NMC PIPIED GAS <br /> COMPANY PVT. LTD.</h5>
+                        <h7>
+                            4th Floor, Nav Maharashtra House, 43 Shaniwar Peth,<br />
+                            Pune-411030, Tel. No. 9028222283/64/65
+                        </h7><br />
+                        <h8>
+                            Contact: Accounts 9823328222,9823328245,9873353335
+                        </h8>
+                        <p style="margin:0;font-size:18px;"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding-bottom:14px;">
+                        <h7 style="margin:0;font-size:18px;font-weight:900;text-transform:uppercase;">Receipt No.  @Model.ReceiptNo </h7>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="width:100%;max-width:420px;margin:auto;">
+            <tbody>
+                <tr>
+                    <td style="width:50%;padding-bottom:14px;">
+                        <h5 style="margin:0;font-size:16px;text-transform:uppercase;">Date</h5>
+                    </td>
+                    <td style="width:50%;padding-bottom:14px;">
+                        <h5 style="margin:0;font-weight:bold;font-size:16px;text-transform:uppercase;">@Model.BillDate</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:50%;padding-bottom:14px;">
+                        <h4 style="margin:0;font-size:16px;text-transform:uppercase;">Name</h4>
+                    </td>
+                    <td style="width:50%;padding-bottom:14px;">
+                        @Model.CutomerName
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:50%;padding-bottom:14px;">
+                        <h5 style="margin:0;font-size:16px;text-transform:uppercase;">Payment Mode</h5>
+                    </td>
+                    <td style="width:50%;padding-bottom:14px;">
+                        <h5 style="margin:0;font-size:16px;text-transform:uppercase;">Online</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:50%;padding-bottom:14px;">
+                        <h5 style="margin:0;font-size:16px;text-transform:uppercase;">Bill No.</h5>
+                    </td>
+                    <td style="width:50%;padding-bottom:14px;">
+                        <h5 style="margin:0;font-weight:bold;font-size:16px;text-transform:uppercase;"> @Model.BillNo</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:50%;padding-bottom:14px;">
+                        <h5 style="margin:0;font-size:16px;text-transform:uppercase;">Received Amt.</h5>
+                    </td>
+                    <td style="width:50%;padding-bottom:14px;">
+                        <h5 style="margin:0;font-weight:bold;font-size:16px;text-transform:uppercase;">Rs. @Model.Amount</h5>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </body>*@

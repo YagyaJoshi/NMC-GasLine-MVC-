@@ -1,0 +1,250 @@
+﻿@model NMCPipedGasLineAPI.Models.CustomerBillReading
+
+@{
+    /**/
+
+    ViewBag.Title = "CustomerReading";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#ImageRemove").click(function () {
+
+            $("#myUploadedImg1").attr('src', "");
+            $("#myUploadedImg1").hide();
+            $('#myUploadedImg').attr('src', '');
+            $("#myUploadedImg").hide();
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = (function (e) {
+                    var file = e.target;
+                    $('#myUploadedImg').attr('src', e.target.result).insertBefore("#imageUploadForm");
+                    $("#myUploadedImg").show();
+                    $("#myUploadedImg1").hide();
+
+                    $("#ImageRemove").click(function () {
+
+                        $("#myUploadedImg1").hide();
+                        $('#myUploadedImg1').attr('src', '');
+                        $("#myUploadedImg").hide();
+                        $('#myUploadedImg').attr('src', '');
+                        $("#imageUploadForm").val('');
+                    });
+
+                });
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imageUploadForm").change(function () {
+            readURL(this);
+        });
+    });
+
+</script>
+
+<label style="color:Red" id="messageId"></label>
+
+@using (Html.BeginForm("CustomerReading", "Payment", FormMethod.Post, new { enctype = "multipart/form-data", @id = "redg" }))
+{
+    <h4>Customer Reading</h4>
+
+    <label style="color:green" id="successMessage"></label>
+    <label style="color:Red" id="errorMessage"></label>
+    @Html.AntiForgeryToken()
+    if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>@TempData["Success"].ToString().</strong>
+        </div>
+    }
+    if (TempData["MessageFailed"] != null && TempData["MessageFailed"] != "")
+    {
+        <div id="lbl" class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Error!</strong> @TempData["MessageFailed"]
+        </div>
+    }
+    <hr />
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputCurrentRedg">Current Reading<i class="text-danger">*</i></label>
+            @Html.TextBoxFor(m => m.CurrentRedg, new { @class = "form-control", @placeholder = "Current Reading", @id = "CurrentRedg" })
+            @Html.ValidationMessageFor(m => m.CurrentRedg, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group col-md-6">
+
+
+            @Html.HiddenFor(m => m.MeterRedgImage, new { @id = "MeterRedgImage" })
+            @Html.HiddenFor(m => m.UpdateMeterRedgImage, new { @id = "MeterRedgImage" })
+
+
+            <label for="inputMeterRedgImage">Upload Meter Image<i class="text-danger">*</i></label>
+
+            @*<div class="custom-file">*@
+            <div> <input type="file" accept="image/*" style="color:green;" id="imageUploadForm" name="ImageFile" capture></div>
+            <div class="custom-file col-md-12 p-0">
+
+                @if (Model.Id != null && @Model.MeterRedgImage != null)
+                {
+                    <img id="myUploadedImg1" style="width:100%; margin:5px 0px; display:block" src="@Url.Content(@Model.MeterRedgImage)" alt="Image" />
+                }
+                else if (@Model.MeterRedgImage != null)
+                {
+                    <img id="myUploadedImg1" style="width:100%; margin:5px 0px; display:block" src="@Url.Content(@Model.MeterRedgImage)" alt="Image" />
+                }
+
+                <div>  <img id="myUploadedImg" style="width:100%; margin:5px 0px; display:none" alt="Image" /></div>
+
+                @*</div>*@
+
+                @if (ViewBag.ImageError != null)
+                {
+                    <div style="color:red;">
+
+                        @(ViewBag.ImageError != null ? ViewBag.ImageError.ToString() : "")
+                    </div>
+
+                }
+                <label for="a" class="text-danger" style="display:none" id="txtStatus1"></label>
+                <div class="form-group mt-2">
+
+                    <div class=" col-md-12 p-0">
+                        <button type="button" class="btn   btn-secondary" id="ImageUpload">Upload</button>
+
+                        <button type="button" class="btn  btn-dark  " id="ImageRemove">Remove</button>
+                    </div>
+                </div>
+            </div>
+            @if (ViewBag.Error != null)
+            {
+                <div style="color:red;">
+
+                    @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="form-group row mt-4">
+        <hr />
+        <div class="col-md-12 ">
+            <a href='@Url.Action("CustomerReadingHistory", "Payment")' class="mr-2 btn btn-danger">Cancel</a>
+            <input type="button" class="btn btn-success" value="Save" onclick="confirmUser()" />
+        </div>
+    </div>
+}
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#imageUploadForm").change(function () {
+            var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+            if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                //alert("Only formats are allowed : " + fileExtension.join(', '));
+
+                $('#txtStatus1').text("please upload image")
+                $('#txtStatus1').show();
+                $('#successMessage').text('');
+                $('#errorMessage').text('');
+            }
+        });
+
+        $("#ImageUpload").click(function () {
+
+            var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+            if ($.inArray($("#imageUploadForm").val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                $('#txtStatus1').text("please upload image")
+                $('#txtStatus1').show();
+            }
+            else {
+                $('#txtStatus1').hide();
+                $('#successMessage').text('');
+                $('#errorMessage').text('');
+                $('#txtStatus1').text('');
+
+                var data = new FormData();
+                var files = $("#imageUploadForm").get(0).files;
+                if (files.length > 0) {
+
+                    data.append("ImageFile", files[0]);
+                }
+
+                $.ajax({
+                    url: '@Url.Action("customerRedgImg", "Payment")',
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function (data) {
+                        $("#MeterRedgImage").val(data);
+                        $('#successMessage').show();
+                        $('#successMessage').text("Your image uploaded successfully").insertAfter("#imageUploadForm");
+                        $('#errorMessage').text('');
+                    },
+                    error: function () {
+                        $('#erroMessage').show();
+                        $('#errorMessage').text("Please Choose the image file").insertAfter("#imageUploadForm");
+                        $('#successMessage').text('');
+                    }
+
+                });
+            }
+        });
+
+    });
+    function confirmUser() {
+        var redgValidation = /^[1-9]\d*(\.\d+)?$/;
+        // var conf = confirm("Are you sure . you want to save this data");
+        //if (conf == true) {
+            if ($.trim($('#CurrentRedg').val()) == '') {
+                isValid = false;
+                $('#CurrentRedg').addClass('error');
+                $('#messageId').text("Current Reading is required.").insertAfter("#CurrentRedg");
+                return false;
+            } else {
+                //if (!redgValidation.test($.trim($('#CurrentRedg').val()))) {
+                //    isValid = false;
+                //    $('#CurrentRedg').addClass('error');
+                //    //$('#erroMessage').show();
+                //    $('#messageId').text("Only allow decimal and numeric values.").insertAfter("#CurrentRedg");
+                //    return false;
+                //}
+                //else {
+                //    $('#CurrentRedg').val($.trim($('#CurrentRedg').val()));
+                //    $('#CurrentRedg').removeClass('error');
+                //    //$('#erroMessage').hide();
+                //    $('#messageId').text('');
+
+                //}
+            }
+
+
+            $("#redg").submit();
+
+           return true;
+       //}
+       // else {
+       //     $(this).dialog("close");
+       //     return false;
+       // }
+    }
+
+</script>

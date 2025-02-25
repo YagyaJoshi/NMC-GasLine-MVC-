@@ -1,0 +1,407 @@
+﻿@model NMCPipedGasLineAPI.Models.GodownMaster
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+
+
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.sumoselect/3.0.2/sumoselect.min.css"
+    rel="stylesheet" type="text/css" />*@
+
+@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
+
+
+@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+    <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>*@
+
+<script type="text/javascript">
+    window.onload = window.history.forward(0);
+
+
+    $(document).on('invalid-form.validate', 'form', function () {
+        var button = $(this).find('input[type="submit"], button[type="submit"]');
+        setTimeout(function () {
+            button.removeAttr('disabled');
+        }, 1);
+    });
+    $(document).on('submit', 'form', function () {
+        var button = $(this).find('input[type="submit"], button[type="submit"]');
+        setTimeout(function () {
+            button.attr('disabled', 'disabled');
+        }, 0);
+    });
+
+      $(function () {
+        $('#AreaId').multiselect({
+            includeSelectAllOption: true
+        });
+    });
+
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    $(function () {
+        $('#AreaId').multiselect({
+            includeSelectAllOption: true,         /*To enable the Select all Option*/
+            selectAllValue: 'multiselect-all',     /*The value used for the select all option can be configured using the selectAllValue*/
+            enableFiltering: true,   /*A filter input will be added to dynamically filter all the options*/
+            enableCaseInsensitiveFiltering: true,  /*To enable Case Insenstitive Filtering (Upper and Lower Case Letters)*/
+            maxHeight: '300',
+            buttonWidth: '235',
+        });
+    });
+
+    function SelectedIndexChanged() {
+
+         var value = 0;
+        if ($("#CompanyId").val() != "") {
+            value = $("#CompanyId").val();
+            }
+        var id = $("#CompanyId").attr("id");
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("MasterData", "Home")',
+                data: '{type: "' + id + '", value: "' + value + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+                    $('#AreaId').empty();
+                   var dropDownId;
+                    var list;
+
+                    switch (id) {
+                          case "CompanyId":
+                            $('#AreaId').show();
+                            dropDownId = "#AreaId";
+                            list = response.Area;
+                            $(dropDownId).multiselect('destroy');
+
+                            $.each(response.Area, function () {
+                                $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+                            });
+
+                        $('#AreaId').multiselect({
+                                includeSelectAllOption: true
+                            });
+                           break;
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+
+    }
+
+
+    @*$(function () {
+
+        $("#CompanyId").change(function () {
+
+            var value = 0;
+            if ($(this).val() != "") {
+                value = $(this).val();
+            }
+            var id = $(this).attr("id");
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("MasterData", "Home")',
+                data: '{type: "' + id + '", value: "' + value + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+
+                   var dropDownId;
+                    var list;
+
+                    switch (id) {
+
+
+                        case "CompanyId":
+
+                          $('#AreaId').show();
+                            dropDownId = "#AreaId";
+                            list = response.Area;
+
+                            PopulateDropDown("#AreaId", list);
+                            $('#AreaId').SumoSelect({ csvDispCount: 4 });
+                           break;
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });*@
+
+    function DisableDropDown(dropDownId) {
+        $(dropDownId).attr("disabled", "disabled");
+        $(dropDownId).empty().append('<option selected="selected" value="0">Please select</option>');
+    }
+
+
+    function selectddl(value, id)
+    {
+
+          $.ajax({
+                type: "POST",
+                url: '@Url.Action("MasterData", "Home")',
+                data: '{type: "' + id + '", value: "' + value + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+                    $('#AreaId').empty();
+                   var dropDownId;
+                    var list;
+
+                    switch (id) {
+                          case "CompanyId":
+                            $('#AreaId').show();
+                            dropDownId = "#AreaId";
+                            list = response.Area;
+                            $(dropDownId).multiselect('destroy');
+
+                            $.each(response.Area, function () {
+                                $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+                            });
+
+                        $('#AreaId').multiselect({
+                                includeSelectAllOption: true
+                            });
+                           break;
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+
+    $(document).ready(function () {
+
+
+        @if(@Model.CompanyName != null)
+        { <text>
+        selectddl('@Model.CompanyId', $("#CompanyId").attr("id"));
+        </text>
+        }
+
+      
+            $('#AreaId').multiselect({
+                includeSelectAllOption: true,
+                enableCaseInsensitiveFiltering: true,
+                enableFiltering: true,
+                maxHeight: 200
+            });
+  
+    });
+
+
+
+</script>
+
+
+
+
+
+
+
+
+@using (Html.BeginForm("Index", "GoDownMaster", FormMethod.Post))
+{
+
+
+
+    <div class="form-horizontal">
+
+
+
+
+        <h4>Society  Master</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCompany">Company <i class="text-danger">*</i></label>
+                @Html.DropDownListFor(model => model.CompanyId,
+               new SelectList(Model.Company, "Id", "CompanyName"), "Please Select Company", new { @class = "form-control", onchange = "SelectedIndexChanged()" })
+                @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputName">Society Name <i class="text-danger">*</i></label>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Society Name", @MaxLength = "50" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.Id)
+
+                @for (int i = 0; i < Model.UAreadId.Count(); i++)
+                {
+                    @Html.HiddenFor(model => Model.UAreadId[i])
+                }
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputInputRate">Input Rate (Rs) <i class="text-danger">*</i></label>
+                @Html.EditorFor(model => model.InputRate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Input Rate", onkeypress = "return isNumberKey(event)" } })
+                @Html.ValidationMessageFor(model => model.InputRate, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputNewServiceCharge">Service Charge (Rs)</label>
+                @Html.EditorFor(model => model.NewServiceCharge, new { htmlAttributes = new { @class = "form-control", @placeholder = "Service Charge", onkeypress = "return isNumberKey(event)" } })
+                @Html.ValidationMessageFor(model => model.NewServiceCharge, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputArea">Area <i class="text-danger">*</i></label>
+                <select class="form-control" data-val="true" data-val-required="Please Select Area Name" id="AreaId" multiple="Multiple" name="AreaId" placeholder="Please select Area">
+
+                    @if (Model.Area != null)
+                    {
+                        foreach (var item in Model.Area)
+                        {
+                            if (item.Text != null)
+                            {
+                                <option value="@item.Value"> @item.Text  </option>
+                            }
+                        }
+                    }
+
+                </select>
+                @*@Html.ListBoxFor(m => m.AreaId, new SelectList(Model.Area, "AreaId", "AreaName"), new { @multiple = "Multiple", @placeholder = "Please select Area", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })*@
+
+                @*@Html.DropDownListFor(m => m.AreaId, new SelectList(Model.Area, "AreaId", "AreaName"), new { @multiple = "multiple", @placeholder = "Please select Area", @class = "ddlMultiSlectBox form-control" })*@
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="Code">Code<i class="text-danger">*</i></label>
+                @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Code" } })
+                @Html.ValidationMessageFor(model => model.ShortName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputArea">Alias Name <i class="text-danger">*</i></label>
+                @Html.EditorFor(model => model.AliasName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Alias Name" } })
+                @Html.ValidationMessageFor(model => model.AliasName, "", new { @class = "text-danger" })
+
+            </div>
+
+
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+
+            <div style="color:red;">
+
+                @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+            </div>
+
+        }
+
+
+        <div class="form-group">
+            <div class="col-md-12 d-flex justify-content-end px-0">
+                <a href='@Url.Action("List", "GoDownMaster")' class="mr-2 btn btn-dark">Cancel</a>
+                <input type="submit" value="Save" class="btn btn-dark-success" />
+            </div>
+        </div>
+
+    </div>
+
+}
+
+
+<script type="text/javascript">
+    $(function () {
+
+        @if (Model.Id ==null)
+        {  <text>
+
+        $('#AreaId').multiselect({
+            includeSelectAllOption: true
+        });
+
+        //$('#AreaId').hide();
+
+        </text>
+
+
+        }
+        else
+
+        { <text>
+
+        //var data = @Html.Raw(Json.Encode(Model.AreaId));
+       var values = "@Model.AreaIdedit";
+        $.each(values.split(","), function (i, e) {
+          $("#AreaId option[value='" + e + "']").prop("selected", true);
+        });
+        $('#AreaId').multiselect({
+            includeSelectAllOption: true
+        });
+      </Text>
+    } });
+</script>
+
+
+
+
+
+
+
+
+@*@section Scripts {
+
+
+
+
+
+
+        <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+
+
+
+
+    }*@

@@ -1,0 +1,122 @@
+﻿@model NMCPipedGasLineAPI.Models.CustPaymentModel
+@{
+    ViewBag.Title = "CustomerPay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("PostCustomerPay", "Payment", FormMethod.Post))
+    {<div class="row">
+
+            <div class="page-header">
+                <p><b>NMC Payment Method</b></p>
+            </div>
+            <div class="col-md-12" id="bp_info_div">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>MerchantID</label>
+                            @Html.TextBoxFor(x => x.MerchantID, new { @class = "form-control", @readonly = "readonly" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>CustomerID</label>
+                            @Html.TextBoxFor(x => x.CustomerID, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Amount</label>
+                            @Html.TextBoxFor(x => x.Amount, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>CurrencyType</label>
+                            @Html.TextBoxFor(x => x.CurrencyType, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>TypeField1</label>
+                            @Html.TextBoxFor(x => x.TypeField1, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>SecurityID</label>
+                            @Html.TextBoxFor(x => x.SecurityID, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>TypeField2</label>
+                            @Html.TextBoxFor(x => x.TypeField2, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>AdditionalInfo1</label>
+                            @Html.TextBoxFor(x => x.AdditionalInfo1, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>AdditionalInfo2</label>
+                            @Html.TextBoxFor(x => x.AdditionalInfo2, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Return URL</label>
+                            @Html.TextBoxFor(x => x.RU, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input id="billdesk" type="radio" class="required" name="payment_type" value="billdesk">
+                            <label for="billdesk">BillDesk</label>
+                            <img src="https://www.mngl.in/onlinebill/sitedata/images/billdesk.jpg" width="100px" height="70px" alt="BillDesk">
+                        </div>
+                    </div>
+                </div>
+
+                <input class="btn btn-primary" name="Payment" value="Pay" type="submit">
+            </div>
+        </div>
+    }
+
+@*<script type="text/javascript">
+    function myfunc() {
+        var frm = document.all("abc");
+        frm.submit();
+    }
+    window.onload = myfunc;
+</script>
+<form name='abc' method='POST' action='https://pgi.billdesk.com/pgidsk/PGIMerchantPayment'>
+    <input type='hidden' name='MID' value='NMCGAS'>
+    <input type='hidden' name='CUST_ID' value='1073234'>
+    <input type='hidden' name='TXN_AMOUNT' value='2.00'>
+    <input type='hidden' name='CurrencyType' value='INR'>
+    <input type='hidden' name='txtTypeField1' value='R'>
+    <input type='hidden' name='SecurityID' value='nmcgas'>
+    <input type='hidden' name='txtTypeField2' value='F'>
+    <input type='hidden' name='txtAdditionalInfo1' value='7415966605'>
+    <input type='hidden' name='txtAdditionalInfo2 ' value='rishabh@synsoftglobal.com'>
+    <input type='hidden' name='CHECKSUMHASH' value='f2fd6161fc99807a5d479390c861627ccaaea4f9750e6bdefa03b1a4f48dbd65'>
+    <input type='hidden' name='RU' value='http://nmcadmin.azurewebsites.net/payment/postdata'>
+
+</form>*@

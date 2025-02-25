@@ -1,0 +1,136 @@
+﻿@model NMCPipedGasLineAPI.Models.CustLogin
+@{
+    ViewBag.Title = "CustomerLogin";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>NMC</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link rel="icon" href="~/img/favicon.png" />
+    <!-- Bootstrap core CSS-->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="~/Content/style.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <div class="container">
+        <div class="bgGradient"></div>
+        <div class="auth-form">
+
+            <div class="login-div main-div">
+                <div class="panel">
+                    <a href="#"><img src="~/img/logo.svg" class="panel-logo" alt="NMC" /></a>
+                    <h2>Sign in</h2>
+                    <p>Please enter your email and password</p>
+                </div>
+                @using (Html.BeginForm("CustomerLogin", "Payment", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "CustomerLogin" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Use a local account to customer log in.</h4>
+                    if (TempData["Success"] != null && TempData["Success"] != "")
+                    {
+                        <div id="lbl" class="alert alert-success">
+                            @TempData["Success"]
+                        </div>
+                    }
+                    if (TempData["SuccessOTP"] != null && TempData["SuccessOTP"] != "")
+                    {
+                        <div id="lblOTP" class="alert alert-success">
+                            @TempData["SuccessOTP"]
+                        </div>
+                    }
+                    if (TempData["MessageFailed"] != null && TempData["MessageFailed"] != "")
+                    {
+                        <div id="lbl" class="alert alert-danger">
+                            @TempData["MessageFailed"]
+                        </div>
+                    }
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger  d-flex w-100" })
+                    if (!Model.isOTP)
+                    {
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.UniqueId, new { @class = "form-control", @placeholder = "CustomerID" })
+                            @Html.ValidationMessageFor(m => m.UniqueId, "", new { @class = "text-danger d-flex w-100" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", @placeholder = "Email" })
+                            @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger  d-flex w-100" })
+                        </div>
+                        <div class="form-group">
+                            OR
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "Phone", maxlength = "10" })
+                            @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger  d-flex w-100" })
+                           
+                        </div>
+                        <br />
+                        <button type="submit" name="Submit" value="GenerateOTP" class="btn btn-primary btn-block">Generate OTP</button>
+                    }
+                    if (Model.isOTP)
+                    {
+                        if (TempData["MessageOTP"] != null && TempData["MessageOTP"] != "")
+                        {
+                            <div id="lbl" class="alert alert-danger">
+                                @TempData["MessageOTP"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.OTP, new { @class = "form-control", @placeholder = "OTP", maxlength = "5" })
+                            @Html.ValidationMessageFor(m => m.OTP, "", new { @class = "text-danger d-flex w-100", @Style = "text-align: right" })
+                            <label id="lblOTPMsg" class="text-danger w-100" style="text-align: left;">Please enter OTP</label>
+                        </div>
+                        <br />
+                        @Html.HiddenFor(m => m.UniqueId)
+                        @Html.HiddenFor(m => m.EmailId)
+                        @Html.HiddenFor(m => m.Phone)
+                        @Html.HiddenFor(m => m.Id)
+                        <div class="form-group">
+                            <button type="submit" name="Submit" id="btnResend" value="Resend" class="btn btn-primary">Resend OTP</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="Submit" id="btnLogin" value="Login" class="btn btn-primary btn-block">Login</button>
+                        </div>
+                    }
+                    <div class="alert alert-default"></div>
+                    @*<a href="~/Payment/CustomerCreate">Register</a>
+                        <br/>
+                        <a href="~/Payment/ForgotPassword">Forgot Password</a>*@
+                }
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $("#lblOTPMsg").hide();
+    });
+    setTimeout(function () { $("#lbl").hide(); }, 5000);
+
+    $("#btnLogin").click(function () {
+        var OTP = $("#OTP").val();
+        if (OTP != null && OTP != "") {
+            return true;
+        }
+        else {
+            $("#lblOTPMsg").show();
+            return false;
+        }
+    });
+</script>
+

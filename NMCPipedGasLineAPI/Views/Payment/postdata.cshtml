@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "postdata";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<h2>postdata</h2>
+
+
+@{
+    var posts = Session["paytmParams"] as List<string>;
+    if (posts != null)
+    {
+        <p>Key</p>
+        foreach (var item in posts)
+        {
+
+            <p>@item</p>
+        }
+    }
+
+    var posts1 = Session["paytmParams1"] as List<string>;
+    if (posts1 != null)
+    {<p>Key</p>
+        foreach (var item1 in posts1)
+        {
+            <p>@item1</p>
+        }
+    }
+
+
+
+}
+
+
+

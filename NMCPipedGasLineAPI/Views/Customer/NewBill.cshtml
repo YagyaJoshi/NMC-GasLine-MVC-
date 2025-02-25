@@ -1,0 +1,681 @@
+﻿@model NMCPipedGasLineAPI.Models.Customer
+
+@{
+    ViewBag.Title = "NewBill";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        window.history.pushState(null, "", 'Account/Login');
+    });
+
+</script>
+
+@using (Html.BeginForm("NewBill", "Customer", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <div class="message"></div>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Customer Details</a></li>
+            <li><a href="#tabs-2">Payment</a></li>
+            @*<li><a href="#tabs-3">Tab 3</a></li>*@
+        </ul>
+        <div id="tabs-1">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Name</label>
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name", @readonly = "readonly" })
+
+                    @Html.HiddenFor(m => m.CustomerID)
+                    @Html.HiddenFor(m => m.GodownName)
+                    @Html.HiddenFor(m => m.FlatNo)
+                    @*@Html.HiddenFor(m => m.ClosingRedg)*@
+                    @Html.HiddenFor(m => m.OwnerId)
+                    @*@Html.HiddenFor(m => m.BillDate)*@
+                    @Html.HiddenFor(m => m.CustomerType)
+                    @Html.HiddenFor(m => m.CompanyId)
+                    @Html.HiddenFor(m => m.AreaId)
+                    @Html.HiddenFor(m => m.GodownId)
+                    @Html.HiddenFor(m => m.PreviousBillDate)
+                    @Html.HiddenFor(m => m.InputRate)
+
+
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Address</label>
+                    @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @placeholder = "Address", @readonly = "readonly" })
+
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputArea">BillNo</label>
+                    @Html.TextBoxFor(model => model.BillNo, new { @class = "form-control", @placeholder = "BillNo", @readonly = "readonly" })
+
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">BillDate</label>
+                    @Html.TextBoxFor(model => model.BillDate, new { @class = "form-control", @placeholder = "BillDate", @readonly = "readonly" })
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Item</label>
+                    @Html.DropDownListFor(model => model.StockItemId,
+                   new SelectList(Model.StockItem, "StockItemId", "StockItemName"), "Please Select Item ", new { @class = "form-control" })
+                </div>
+
+
+
+
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Due Date</label>
+
+
+                    @Html.EditorFor(model => model.DueDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Closing Redg</label>
+                    @Html.EditorFor(model => model.ClosingRedg, new { htmlAttributes = new { @class = "form-control", @placeholder = "Closing Redg", @onchange = "GasConsume();" } })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Previous Redg</label>
+                    @Html.EditorFor(model => model.PreviousRedg, new { htmlAttributes = new { @class = "form-control", @placeholder = "Previous Redg", @readonly = "readonly" } })
+                </div>
+
+                @*<div class="form-group col-md-6">
+                        <label for="inputArea">Closing Date</label>
+
+
+                        @Html.EditorFor(model => model.BillDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    </div>*@
+
+
+
+            </div>
+
+
+            @*<div class="form-row">
+
+
+
+
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Reading Date</label>
+
+
+                        @Html.EditorFor(model => model.BillDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    </div>
+
+
+
+
+                </div>*@
+
+            <div class="form-row">
+
+
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Current(Scm)</label>
+                    @Html.TextBoxFor(model => model.CurrentScm, new { @class = "form-control", @Readonly = true, @placeholder = "CurrentScm" })
+
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Current(KGS)</label>
+                    @Html.EditorFor(model => model.CurrentKGS, new { htmlAttributes = new { @class = "form-control", @placeholder = "CurrentKGS", @readonly = "readonly" } })
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Rate</label>
+                    @Html.TextBoxFor(model => model.Rate, new { @class = "form-control", @placeholder = "Rate", @readonly = "readonly" })
+
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Consume Unit</label>
+                    @Html.EditorFor(model => model.ConsumeUnit, new { htmlAttributes = new { @class = "form-control", @placeholder = "Consume Unit", @readonly = "readonly" } })
+                </div>
+
+
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputArea">CGST</label>
+                    @Html.TextBoxFor(model => model.CGST, new { @class = "form-control", @readonly = "readonly", @placeholder = "CGST" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputArea">SGST</label>
+                    @Html.TextBoxFor(model => model.SGST, new { @class = "form-control", @readonly = "readonly", @placeholder = "SGST" })
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Service Amt.</label>
+                    @Html.TextBoxFor(model => model.ServiceAmt, new { @class = "form-control", @placeholder = "Service Amt", @readonly = "readonly" })
+
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Payment Due</label>
+                    @Html.TextBoxFor(model => model.PaymentDue, new { @class = "form-control", @placeholder = "Rate", @readonly = "readonly" })
+
+                </div>
+            </div>
+
+
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Delay Chg.</label>
+                    @Html.EditorFor(model => model.LateFee, new { htmlAttributes = new { @class = "form-control", @placeholder = "Delay Chg.", @readonly = "readonly" } })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">MinAmt</label>
+                    @Html.TextBoxFor(model => model.MinAmt, new { @class = "form-control", @readonly = "readonly", @placeholder = "MinAmt" })
+                </div>
+
+
+
+
+            </div>
+
+
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Total Amount</label>
+                    @Html.EditorFor(model => model.ClosingBalance, new { htmlAttributes = new { @class = "form-control", @placeholder = "Amount", @readonly = "readonly" } })
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Bill Period</label>
+                    @Html.TextBoxFor(model => model.BillMonth, new { @class = "form-control", @placeholder = "Bill Period", @readonly = "readonly" })
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            @*<div class="form-row">
+
+
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Bill No.</label>
+                        @Html.TextBoxFor(model => model.BillNo, new { @class = "form-control", @placeholder = "Bill No" })
+
+                    </div>
+
+                </div>*@
+
+
+        </div>
+        <div id="tabs-2">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.RadioButtonFor(model => model.PaymentTypeId, "251B4F15-7DB8-4033-8796-9F41605C7A62", true)
+                    <label for="inputCash">Cash</label>
+                    @Html.RadioButtonFor(model => model.PaymentTypeId, "25C65187-6DB0-426C-B2E4-C53653F91F7D", false)   <label for="inputCheque">Cheque</label>
+
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Amount</label>
+                    @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", @placeholder = "Amount" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.CheckBoxFor(m => m.isPaid)
+                    <label for="inputArea">Is Paid</label>
+
+                </div>
+            </div>
+
+
+
+            <div class="form-row" id="cash" style="display:none">
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Cheque No</label>
+                    @Html.TextBoxFor(model => model.ChequeNo, new { @class = "form-control", @placeholder = "Cheque No" })
+
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputArea">Bank Name</label>
+                    @Html.TextBoxFor(model => model.BankName, new { @class = "form-control", @placeholder = "Bank Name" })
+
+                </div>
+
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6" id="Acash" style="display:none">
+                    <label for="inputArea">Bank Account No</label>
+                    @Html.TextBoxFor(model => model.AccountNo, new { @class = "form-control", @placeholder = "Bank Account No" })
+                </div>
+
+            </div>
+
+
+
+        </div>
+        @*<div id="tabs-3">
+                Content 3
+            </div>*@
+    </div>
+    <br />
+    @*<input type="hidden" id="selectedTab" name="selectedTab" value="@ViewBag.SelectedTab" />*@
+    <input type="submit" value="Submit" />
+
+
+
+
+</div>
+
+    if (ViewBag.Error != null)
+    { <div style="color:red;">
+            @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+        </div>
+    }
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "List")
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    @if(Model.CustomerType == "Tenant")
+    {<text>
+    $("#OwnerDetails").show();
+    </text>
+
+    }
+
+
+    @if(Model.PaymentTypeId == "25C65187-6DB0-426C-B2E4-C53653F91F7D")
+    {<text>
+    $("#cash").show();
+    $("#Acash").show();
+    </text>
+
+    }
+
+  
+
+    function getDaysInMonth(m, y) {
+        // months in JavaScript start at 0 so decrement by 1 e.g. 11 = Dec
+        --m;
+
+        // if month is Sept, Apr, Jun, Nov return 30 days
+        if (/8|3|5|10/.test(m)) return 30;
+
+        // if month is not Feb return 31 days
+        if (m != 1) return 31;
+
+        // To get this far month must be Feb ( 1 )
+        // if the year is a leap year then Feb has 29 days
+        if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) return 29;
+
+        // Not a leap year. Feb has 28 days.
+        return 28;
+    }
+
+
+    var getDateArray = function (start, end) {
+        var arr = new Array();
+        var dt = new Date(start);
+        while (dt <= end) {
+            arr.push(new Date(dt));
+            dt.setDate(dt.getDate() + 1);
+
+        }
+        return arr;
+    }
+
+    function GasConsume() {
+        var ClosingRedg = $('#ClosingRedg').val();
+       
+        if (ClosingRedg != "") {
+            var testjson = []
+            var t = {
+                "month": '',
+                "year": '',
+                "day": '',
+                "CompanyId": '',
+                "StockItemId": '',
+                "PreviousRedg": '',
+                "ClosingRedg": '',
+                "InputRate": ''
+            }
+          
+
+            var StockItemId = $('#StockItemId').val();
+            var CompanyId = document.getElementById("CompanyId").value;
+            var PreviousRedg = $('#PreviousRedg').val();
+            var PreviousBillDate = $('#PreviousBillDate').val();
+            var ClosingRedg = $('#ClosingRedg').val();
+            var BillDate = $('#BillDate').val();
+            var InputRate = document.getElementById("InputRate").value;
+
+            var endDate = new Date(BillDate);
+            var startDate = new Date(PreviousBillDate); //YYYY-MM-DD
+
+            if (PreviousBillDate == '') {
+
+                var d = endDate.getDate();
+                var m = endDate.getMonth() + 1;
+                var y = endDate.getFullYear();
+                var j = y + "-" + m + "-" + d;
+                //PreviousBillDate = new Date(j);
+                startDate = new Date(j); //YYYY-MM-DD
+
+            } else {
+
+                startDate = new Date(PreviousBillDate); //YYYY-MM-DD
+            }
+            
+          
+           
+            //YYYY-MM-DD
+            //array of date
+            var dateArr = getDateArray(startDate, endDate);
+            var arr2 = new Array();
+            // Output
+            //document.write("<p>Start Date: " + startDate + "</p>");
+            //document.write("<p>End Date: " + endDate + "</p>");
+            //document.write("<p>Date Array</p>")
+            var startDate1 = new Date("2017-10-01");
+            for (var i = 0; i < dateArr.length; i++) {
+
+                var t = {}
+                startDate1 = new Date(dateArr[i])
+                arr2.push(startDate1.getMonth() + 1);
+                t.month = startDate1.getMonth() + 1;
+                t.year = startDate1.getFullYear();
+                t.day = getDaysInMonth(t.month, t.year)
+                t.ClosingRedg = ClosingRedg;
+                t.PreviousRedg = PreviousRedg;
+                t.CompanyId = CompanyId;
+                t.StockItemId = StockItemId;
+                t.InputRate = InputRate;
+                testjson.push(t)
+            }
+            
+            var result = testjson.reduce((unique, o) => {
+                if (!unique.some(obj => obj.month === o.month && obj.year === o.year)) {
+                    unique.push(o);
+                }
+                return unique;
+            }, []);
+
+
+            //document.write("<p>" + JSON.stringify(result) + "</p>");
+            var firstItem = result[0];
+            //var lastItem = result[result.length - 1];
+            var f = firstItem.day - startDate.getDate();
+            var l = endDate.getDate();
+            result[0].day = f;
+            result[result.length - 1].day = l;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("getrate", "Customer")',
+                data: JSON.stringify(result),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.BankName == "") {
+                        $('#CurrentScm').val(response.CurrentScm);
+                        $('#CurrentKGS').val(response.CurrentKGS);
+                        $('#ConsumeUnit').val(response.ConsumeUnit);
+                        $('#Rate').val(response.Rate);
+                        $('#BillMonth').val(startDate.getFullYear()+'-'+startDate.getMonth()+1+'-'+startDate.getDate()+' To ' + BillDate);
+
+                        CalculateTotal()
+                    }
+                    else {
+                        var message = $('.message');
+                        message.text(response.BankName);
+                        window.location = "/Area/error?Error=" + response.BankName + ""
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+
+        }
+        else {
+
+        }
+    }
+
+    function CalculateTotal() {
+
+        if ($("#ConsumeUnit").val() == "") { $("#ConsumeUnit").val(0) }
+        if ($("#ServiceAmt").val() == "") { $("#ServiceAmt").val(0) }
+        if ($("#PaymentDue").val() == "") { $("#PaymentDue").val(0) }
+
+        var ConsumeUnit = parseFloat($("#ConsumeUnit").val());
+        var ServiceAmt = parseFloat($("#ServiceAmt").val());
+        var PaymentDue = parseFloat($("#PaymentDue").val());
+
+        var Totalamount =  ServiceAmt + PaymentDue;
+        Totalamount = (Totalamount / 100) * 9;
+        $("#SGST").val(Totalamount);
+        $("#CGST").val(Totalamount);
+
+        if ($("#SGST").val() == "") { $("#SGST").val(0) }
+        if ($("#CGST").val() == "") { $("#CGST").val(0) }
+        var sumtotal = parseFloat(ConsumeUnit) + parseFloat(ServiceAmt) + parseFloat(PaymentDue) + parseFloat($("#SGST").val()) + parseFloat($("#CGST").val());
+        $("#ClosingBalance").val(sumtotal);
+    }
+    
+    $(document).ready(function () {
+        
+        $("input[name='CustomerType']").on("change", function () {
+            if ($(this).val() == "Tenant") {
+                $("#OwnerDetails").show();
+                $("#OwnerName").val("");
+                $("#OwnerAddress").val("");
+                $("#OwnerEmail").val("");
+                $("#OwnerPhone").val("");
+            }
+            else { $("#OwnerDetails").hide(); }
+        });
+        $("input[name='PaymentTypeId']").on("change", function () {
+
+            if ($(this).val() == "25C65187-6DB0-426C-B2E4-C53653F91F7D") {
+                $("#cash").show();
+                $("#Acash").show();
+                $("#ChequeNo").val("");
+                $("#BankName").val("");
+                $("#AccountNo").val("");
+            }
+            else {
+                $("#cash").hide();
+                $("#Acash").hide();
+            }
+        });
+        
+    });
+
+    $(function () {
+           var selected_tab = 0;
+           var tabs = $("#tabs").tabs({
+                select: function (e, i) {
+                    selected_tab = i.index;
+                }
+            });
+            selected_tab = $("#selectedTab").val() != "" ? parseInt($("#selectedTab").val()) : 0;
+            //tabs.tabs('select', selected_tab);
+            $("form").submit(function () {
+                $("#selectedTab").val(selected_tab);
+            });
+
+
+        $("select").each(function () {
+            if ($(this).find("option").length <= 1) {
+                $(this).attr("disabled", "disabled");
+            }
+        });
+
+        $("select").change(function () {
+
+            $('#ClosingRedg').val("");
+
+            $('#CurrentScm').val("");
+            $('#CurrentKGS').val("");
+            $('#ConsumeUnit').val("");
+            $('#Rate').val("");
+            $('#BillMonth').val("");
+
+            var value = 0;
+            if ($(this).val() != "") {
+                value = $(this).val();
+                if ($(this).attr("name") == "GodownId")
+                {
+                    if (value != "0") {
+                       $('#GodownName').val($('#GodownId').text().replace('Please select', ''))
+
+                    }
+
+                }
+
+
+            }
+            var id = $(this).attr("id");
+
+            @*$.ajax({
+                type: "POST",
+                url: '@Url.Action("MasterData", "Home")',
+                data: '{type: "' + id + '", value: "' + value + '", pagename: "customer"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var dropDownId;
+                    //alter(JSON.stringify(response.GoDown))
+                    var list;
+                    switch (id) {
+                        case "CompanyId":
+                            dropDownId = "#AreaId";
+                            list = response.Area;
+                            DisableDropDown("#AreaId");
+                            PopulateDropDown("#AreaId", list);
+                            dropDownId = "#StockItemId";
+                            list = response.StockItemList;
+                             $("#ReconnectionAmt").val(list[0].ReConnectionFee)
+                            DisableDropDown("#StockItemId");
+                            PopulateDropDown("#StockItemId", list);
+                        break;
+                        case "AreaId":
+                            dropDownId ="#GodownId";
+                            list = response.GoDown;
+                            DisableDropDown("#GodownId");
+                            PopulateDropDown("#GodownId", list);
+                            break;
+
+
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });*@
+        });
+    });
+
+    function DisableDropDown(dropDownId) {
+        $(dropDownId).attr("disabled", "disabled");
+        $(dropDownId).empty().append('<option selected="selected" value="0">Please select</option>');
+    }
+
+    function PopulateDropDown(dropDownId, list) {
+        if (list != null && list.length > 0) {
+            $(dropDownId).removeAttr("disabled");
+            $.each(list, function () {
+                $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+            });
+        }
+    }
+
+    $(function () {
+        if ($("#CountryId").val() != "" && $("#StateId").val() != "" && $("#CityId").val() != "" && $("#AreaId").val() != "" && $("CompanyId").val() !="") {
+            var message = "GoDown: " + $("#GoDownId option:selected").text();
+            message += "\nCompany: " + $("#CompanyId option:selected").text();
+            message += "\nArea: " + $("#AreaId option:selected").text();
+
+        }
+    });
+
+</script>

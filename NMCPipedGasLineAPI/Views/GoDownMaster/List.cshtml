@@ -1,0 +1,166 @@
+﻿@model IEnumerable<NMCPipedGasLineAPI.Models.GodownMaster>
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="float:right"><button class="btn btn-dark-success" onclick="location.href='@Url.Action("Index", "GodownMaster")';return false;">Create New</button></div>
+
+<br />
+<br />
+
+<style media="all" type="text/css">
+    .alignRight {
+        text-align: right;
+    }
+
+    .title {
+        text-align: left;
+        padding-left: 15px;
+    }
+</style>
+
+<div id="msg">
+    <p style="color:green;" id="result"></p>
+</div>
+
+<div class="modal fade" id="deletesociety" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Society</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-title title">
+                <p>Are you sure you want to delete society data?</p>
+            </div>
+            <div class="modal-body" style="margin-top: -13px;">
+
+            </div>
+            <div class="modal-footer" style="margin-top: -40px;">
+                <input type="button" value="Delete" id="deleteSocietyData" class="btn btn-danger" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = window.history.forward(0);
+    function confirmUser(data) {
+        var ask = confirm("Are you sure you want to InActive this");
+        if (ask) {
+            window.location = "Delete?GodownId=" + data;
+        }
+    }
+
+    function deleteSociety(data) {
+        console.log("DeleteSociety", data);
+
+        $.ajax({
+             type: 'GET',
+            url: '@Url.Action("DeleteSociety", "GoDownMaster")',
+            data: {godownId:data},
+            success: function (data) {
+                $('#deletesociety').find('.modal-body').html(data);
+            },
+            error: function (data) {
+                alert(data.responseText);
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        $("#deleteSocietyData").click(function () {
+            var password = $("#password").val();
+            if (password != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("DeleteSociety", "GoDownMaster")',
+                    data: { godownId: $("#Id").val(), password: password },
+                    success: function (data) {
+                        if (data.test == "Incorrect Password") {
+                            $('#pass1').text("Incorrect Password").insertAfter("#password");
+                        }
+                        else {
+                            $("#deletesociety").modal('hide');
+                            $("#msg").show();
+                            $("#result").html(data.test);
+                        }
+                    },
+                    error: function (data) {
+                        alert(data.responseText);
+                    }
+                })
+            }
+            else {
+                $('#password').addClass('error');
+                $('#pass1').text("Please enter password").insertAfter("#password");
+                return false;
+            }
+        });
+
+    });
+
+    $(document).ready(function () {
+        $("#myTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/GoDownMaster/LoadData",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "CreatedAt", "name": "CreatedAt", "autoWidth": true, "visible": false },
+                { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
+                { "data": "Name", "name": "Name", "autoWidth": true },
+                { "data": "AliasName", "name": "AliasName", "autoWidth": true },
+                { "data": "InputRate", "name": "InputRate", "autoWidth": true, "sClass": "alignRight" },
+                { "data": "NewServiceCharge", "name": "NewServiceCharge", "autoWidth": true, "sClass": "alignRight" },
+                { "data": "RecordCount", "name": "RecordCount", "autoWidth": true, "sClass": "alignRight" },
+                { "data": "disCustomercount", "name": "disCustomercount", "autoWidth": true, "sClass": "alignRight" },
+                {
+                    data: "Id", "bSearchable": false,
+                    bSortable: false,
+                    mRender: function (data, type, row) {
+
+                        return '<a href=Edit?GodownId=' + data + ' class="btn btn-sm btn-light-success">Edit </a>'
+                            + ' <a href=# class="btn btn-sm btn-dark-success"  onclick=confirmUser("' + data + '")>Inactive</a>' + ' <a href="#" class="btn btn-danger btn-sm  delete" data-toggle="modal" data-target="#deletesociety" onclick = deleteSociety("'+ data +'")>Delete </a>'
+                    }
+                }
+            ],
+            "order": [0, "desc"]
+        });
+    });
+    
+</script>
+@if (ViewBag.Error != null)
+{
+    <div style="color:green;">
+
+        @(ViewBag.Error != null ? ViewBag.Error.ToString() : "");
+    </div>
+
+}
+
+<br />
+<table id="myTable" class="table-full  table table-bordered table-responsive text-nowrap">
+    <thead>
+        <tr>
+            <th style="display:none">CreatedAt</th>
+            <th>Company Name</th>
+            <th>Society Name</th>
+            <th>Society Alias Name</th>
+            <th>Input Rate (Rs)</th>
+            <th>New Service Charge (Rs)</th>
+            <th>Total Actived Flat</th>
+            <th>Total Disconnected Flat</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+</table>

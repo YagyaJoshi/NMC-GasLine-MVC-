@@ -1,0 +1,569 @@
+﻿@model NMCPipedGasLineAPI.Models.Customer
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+    }
+</style>
+<script>
+    window.onload = window.history.forward(0);
+    function confirmUser(data) {
+        var ask = confirm("Are you sure you want to InActive this");
+        if (ask) {
+            window.location = "Delete?CustomerId=" + data;
+        }
+    }
+
+
+   
+   
+    $(document).ready(function () {
+        $('#myTable').css('display', 'none');
+        $('#Search1').css('display', 'none');
+        $('#GodownId').change(function () {
+                 $('#Search1').show();
+
+        });
+        //var data = { CompanyId: $("#CompanyId").val(), AreaId: $("#AreaId").val(), GodownId: $("#GodownId").val()/*, AliasName: $("#AliasName").val()*/ };
+        //$("#myTable").DataTable({
+        //    oLanguage: {
+
+        //        sProcessing: "<div id=loading><img src=../img/giphy.gif></div>"
+        //    },
+
+        //    "processing": true, // for show progress bar
+        //    "serverSide": true, // for process server side
+        //    "filter": false, // this is for disable filter (search box)
+        //    "orderMulti": false, // for disable multiple column at once
+
+        //    "ajax": {
+        //        "url": "/Customer/LoadData",
+        //        "type": "POST",
+        //        //function (d) {
+        //        //   // $.extend(d, dataObject);
+        //        //    //return JSON.stringify(d);
+
+        //        //    var xh = $('#izabranaZgrada').val();
+        //        //    d.extraSerach = xh;
+
+
+        //        //},
+
+        //        "datatype": "json",
+        //        "data": data,
+               
+        //    },
+        //    "columns": [
+        //        { "data": "CreatedAt", "name": "CreatedAt", "autoWidth": true, "visible": false },
+        //        { "data": "TallyName", "name": "TallyName", "autoWidth": true },
+        //          { "data": "AliasName", "name": "AliasName", "autoWidth": true },
+        //        { "data": "Email", "name": "Email", "autoWidth": true },
+        //        { "data": "Phone", "name": "Phone", "autoWidth": true, "sClass": "alignRight" },
+        //        { "data": "ConnectionType", "name": "ConnectionType", "autoWidth": true, bSortable: false },
+        //        { "data": "GodownName", "name": "GodownName", "autoWidth": true },
+        //        { "data": "AreaName", "name": "AreaName", "autoWidth": true },
+        //        { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
+        //        { "data": "CustomerNumber", "name": "CustomerNumber", "autoWidth": true, bSortable: false },
+        //        { "data": "PassWord", "name": "PassWord", "autoWidth": true, bSortable: false },
+
+        //        {
+        //            data: "CustomerID", "bSearchable": false,
+        //            bSortable: false,
+        //            mRender: function (data, type, row) {
+
+        //                return '<a href=BillList?CustomerId=' + data + ' class="btn btn-light-success btn-sm   ">View Bill</a>'
+        //                //+ ' <a href=Delete?CustomerId=' + data + 'class="btn btn-light-success btn-sm   ">Inactive</a>'
+        //            }
+        //        }
+        //    ]
+        //    ,
+        //    "order": [0, "desc"]
+        //});
+
+        //$("#submit1").click(function (e) {
+        //    var oTable = $('#myTable').DataTable();
+        //    var value = $('#Search').val();
+
+        //    oTable.ajax.reload();
+        //});
+
+        //$("#Search").click(function () {
+        //    var data = { CompanyId: $("#CompanyId").val(), AreaId: $("#AreaId").val(), GodownId: $("#GodownId").val(), AliasName: $("#AliasName").val() };
+        //    var xh = $('#izabranaZgrada').val();
+        //    $("#myTable").DataTable({
+        //        oLanguage: {
+
+        //            sProcessing: "<div id=loading><img src=../img/giphy.gif></div>"
+        //        },
+        //        "bDestroy": true,
+        //        "processing": true, // for show progress bar
+        //        "serverSide": true, // for process server side
+        //        "filter": false, // this is for disable filter (search box)
+        //        "orderMulti": false, // for disable multiple column at once
+
+        //        "ajax": {
+        //            "url": "/Customer/LoadData?Search=" + xh,
+        //            "type": "POST",
+        //            "datatype": "json",
+        //            "data": data,
+        //        },
+        //        "columns": [
+        //            { "data": "CreatedAt", "name": "CreatedAt", "autoWidth": true, "visible": false },
+        //            { "data": "TallyName", "name": "TallyName", "autoWidth": true },
+        //            { "data": "AliasName", "name": "AliasName", "autoWidth": true },
+        //            { "data": "Email", "name": "Email", "autoWidth": true },
+        //            { "data": "Phone", "name": "Phone", "autoWidth": true, "sClass": "alignRight" },
+        //            { "data": "ConnectionType", "name": "ConnectionType", "autoWidth": true, bSortable: false },
+        //            { "data": "GodownName", "name": "GodownName", "autoWidth": true },
+        //            { "data": "AreaName", "name": "AreaName", "autoWidth": true },
+        //            { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
+        //            { "data": "CustomerNumber", "name": "CustomerNumber", "autoWidth": true, bSortable: false },
+        //            { "data": "PassWord", "name": "PassWord", "autoWidth": true, bSortable: false },
+        //            {
+        //                data: "CustomerID", "bSearchable": false,
+        //                bSortable: false,
+        //                mRender: function (data, type, row) {
+
+        //                    return '<a href=BillList?CustomerId=' + data + ' class="btn btn-light-success btn-sm   ">View Bill</a>'
+        //                    //+ ' <a href=Delete?CustomerId=' + data + 'class="btn btn-light-success btn-sm   ">Inactive</a>'
+        //                }
+        //            }
+        //        ],
+        //        "order": [0, "desc"]
+        //    });
+        //    table.search(xh).draw();
+
+        //})
+
+
+    
+
+        $("#Search1").click(function () {
+           //if ($("#CompanyId").val() == "") {
+           //     alert("Please Select Company");
+           // } 
+           
+            //if ($.trim($('#CompanyId').val()) == '') {
+            //    isValid = false;
+            //    $('#CompanyId').addClass('error');
+            //    $('#CompanyId1').text("Please Select Company.").insertAfter("#CompanyId");
+            //    return false;
+            //} else {
+            //    $('#CompanyId1').text("");
+            //}
+
+            //if ($.trim($('#AreaId').val()) == '0') {
+            //    $('#CompanyId1').text("");
+            //    isValid = false;
+            //    $('#AreaId').addClass('error');
+            //    $('#AreaId1').text("Please Select Area.").insertAfter("#AreaId");
+            //    return false;
+            //} else { $('#AreaId1').text(""); }
+            //if ($.trim($('#GodownId').val()) == '0') {
+            //    $('#AreaId1').text("");
+            //    isValid = false;
+            //    $('#GodownId').addClass('error');
+            //    $('#GodownId1').text("Please Select Society.").insertAfter("#GodownId");
+            //    return false;
+            //} else { $('#GodownId1').text(""); }
+
+         
+
+        $('#myTable').show();
+        var data = { CompanyId: $("#CompanyId").val(), AreaId: $("#AreaId").val(), GodownId: $("#GodownId").val(), AliasName: $("#AliasName").val() };
+      $("#myTable").DataTable({
+        oLanguage: {
+
+            sProcessing: "<div id=loading><img src=../img/giphy.gif></div>"
+        },
+         "bDestroy": true,
+        "processing": true, 
+        "serverSide": true,
+        "filter": false, 
+        "orderMulti": false,
+
+        "ajax": {
+            "url": "/Customer/LoadData",
+            "type": "POST",
+            "datatype": "json",
+            "data":data,
+        },
+        "columns": [
+            { "data": "CreatedAt", "name": "CreatedAt", "autoWidth": true, "visible": false },
+            { "data": "TallyName", "name": "TallyName", "autoWidth": true },
+            { "data": "AliasName", "name": "AliasName", "autoWidth": true },
+            { "data": "Email", "name": "Email", "autoWidth": true },
+            { "data": "Phone", "name": "Phone", "autoWidth": true, "sClass": "alignRight" },
+            { "data": "ConnectionType", "name": "ConnectionType", "autoWidth": true, bSortable: false },
+            { "data": "GodownName", "name": "GodownName", "autoWidth": true },
+            { "data": "AreaName", "name": "AreaName", "autoWidth": true },
+            { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
+            { "data": "CustomerNumber", "name": "CustomerNumber", "autoWidth": true, bSortable: false },
+            { "data": "PassWord", "name": "PassWord", "autoWidth": true, bSortable: false },
+
+            {
+                data: "CustomerID", "bSearchable": false,
+                bSortable: false,
+                mRender: function (data, type, row) {
+
+                    return '<a href=BillList?CustomerId=' + data + ' class="btn btn-light-success btn-sm   ">View Bill</a>'
+                    //+ ' <a href=Delete?CustomerId=' + data + 'class="btn btn-light-success btn-sm   ">Inactive</a>'
+                }
+            }
+        ]
+        ,
+        "order": [0, "desc"]
+      });
+     })
+
+    });
+
+
+    $(function () {
+        $("select").each(function () {
+            if ($(this).find("option").length <= 1) {
+                $(this).attr("disabled", "disabled");
+            }
+        });
+
+        $("select").change(function () {
+            var value = 0;
+            if ($(this).val() != "") {
+                value = $(this).val();
+            }
+            var id = $(this).attr("id");
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("MasterData", "Home")',
+                data: '{type: "' + id + '", value: "' + value + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var dropDownId;
+                    //alter(JSON.stringify(response.GoDown))
+                    var list;
+                    switch (id) {
+                        case "CompanyId":
+                            dropDownId = "#AreaId";
+                            list = response.Area;
+                            DisableDropDown("#AreaId");
+                            DisableDropDown("#GodownId");
+                            $("#BillTypeId").val('');
+                            PopulateDropDown("#AreaId", list);
+                            break;
+                        case "AreaId":
+
+                            dropDownId ="#GodownId";
+                            list = response.GoDown;
+                            DisableDropDown("#GodownId");
+                            $("#BillTypeId").val('');
+                            PopulateDropDown("#GodownId", list);
+                            break;
+                                          
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+   
+
+    function DisableDropDown(dropDownId) {
+        $(dropDownId).attr("disabled", "disabled");
+        $(dropDownId).empty().append('<option selected="selected" value="0">Please select</option>');
+    }
+
+    function PopulateDropDown(dropDownId, list) {
+        if (list != null && list.length > 0) {
+            $(dropDownId).removeAttr("disabled");
+            $.each(list, function () {
+                $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+            });
+        }
+    }
+
+
+
+
+    $(function () {
+        if ($("#CountryId").val() != "" && $("#StateId").val() != "" && $("#CityId").val() != "" && $("#AreaId").val() != "" && $("CompanyId").val() !="") {
+            var message = "GoDown: " + $("#GoDownId option:selected").text();
+            message += "\nCompany: " + $("#CompanyId option:selected").text();
+            message += "\nArea: " + $("#AreaId option:selected").text();
+
+        }
+
+
+    });
+
+
+
+    function selectddl(value, id)
+    {
+        $.ajax({
+                type: "POST",
+                url: '@Url.Action("MasterData", "Home")',
+                data: '{type: "' + id + '", value: "' + value + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var dropDownId;
+                    //alter(JSON.stringify(response.GoDown))
+                    var list;
+                    switch (id) {
+                        case "CompanyId":
+                            dropDownId = "#AreaId";
+                            list = response.Area;
+                            DisableDropDown("#AreaId");
+                            $("#BillTypeId").val('');
+                            PopulateDropDown("#AreaId", list);
+                            break;
+                        case "AreaId":
+
+                            dropDownId ="#GodownId";
+                            list = response.GoDown;
+                            DisableDropDown("#GodownId");
+                            $("#BillTypeId").val('');
+                            PopulateDropDown("#GodownId", list);
+                            break;
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+         });
+    }
+
+    @if(@Model.CompanyName != null)
+        { <text>
+        
+            selectddl('@Model.CompanyId', $("#CompanyId").attr("id"));
+        </text>
+        }
+</script>
+
+@if (ViewBag.Error != null)
+{
+
+    <div style="color:green;">
+
+        @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+    </div>
+
+}
+
+<br />
+
+<style>
+    .customer_list_cls {
+        position: relative;
+    }
+
+        .customer_list_cls .form-row {
+            position: absolute;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            top: -15px;
+            z-index: 1;
+        }
+
+    .search_pannel {
+        -ms-flex: 0 0 25%;
+        flex: 0 0 70%;
+        max-width: 70%;
+    }
+</style>
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="inputCompany">Company<i class="text-danger">*</i></label>
+        @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.Company, "Id", "CompanyName"), "Please Select Company", new { @class = "form-control" })
+
+        <label style="color:Red" id="CompanyId1"></label>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputArea">Area<i class="text-danger">*</i></label>
+        @Html.DropDownListFor(m => m.AreaId, new SelectList(Model.Area, "AreaId", "AreaName"), "Please Select Area", new { @class = "form-control" })
+        @*@Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })*@
+        <label style="color:Red" id="AreaId1"></label>
+    </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputGoDown">Society<i class="text-danger">*</i></label>
+            @Html.DropDownListFor(m => m.GodownId, new SelectList(Model.GoDown, "Id", "Name"), "Please Select Society", new { @class = "form-control" })
+            @*@Html.ValidationMessageFor(m => m.GodownId, "", new { @class = "text-danger" })*@
+            <label style="color:Red" id="GodownId1"></label>
+        </div>
+
+        <div id="date" class="form-group col-md-6">
+            <label for="inputAliasName">AliasName </label>
+            @Html.TextBoxFor(m => m.AliasName, new { @class = "form-control"})
+            @Html.ValidationMessageFor(m => m.AliasName, "", new
+            { @class = "text-danger" })
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12 d-flex justify-content-end px-0">
+          
+            <input type="submit" value="Search" id="Search1" class="btn btn-dark-success" style="margin-right: 5px;" />
+        </div>
+    </div>
+
+<div class="customer_list_cls">
+    @*<div class="form-row">
+        <div class="form-group col-md-3">
+
+            <input type="submit" value="Search" id="Search" class="btn btn-dark-success" />
+        </div>
+        <div class="form-group col-md-3 search_pannel">
+
+            @Html.TextBox("izabranaZgrada", null, new { @class = "form-control" })
+        </div>
+    </div>
+    *@
+    <table id="myTable" class="table-full table-sm table table-bordered table-responsive text-nowrap">
+        <thead>
+            <tr>
+                <th style="display:none">CreatedAt</th>
+                <th>Name</th>
+                <th>AliasName</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Connection Type</th>
+                @*<th>Date Of Installation</th>*@
+                <th>Society Name</th>
+                <th>Area Name</th>
+                <th>Company Name</th>
+                <th>Customer Id</th>
+                <th>PassWord</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+
+@*<table class="table table-bordered table-responsive">
+
+
+        <tr>
+            <th scope="col">
+                Name
+            </th>
+            <th scope="col">
+                Email
+            </th>
+            <th scope="col">
+                Phone
+            </th>
+            <th scope="col">
+                Installation Date
+            </th>
+
+            <th scope="col">
+                InstallationAmount
+            </th>
+            <th scope="col">
+                Godown Name
+            </th>
+            <th scope="col">
+                Area Name
+            </th>
+
+
+            <th scope="col">
+                Company Name
+            </th>
+
+            <th></th>
+        </tr>
+
+
+
+
+
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TallyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+
+                @if (item.DateOfInstallation.HasValue)
+                {
+                    <td>
+                        @Convert.ToDateTime(item.DateOfInstallation).ToString("dd/MM/yyyy")
+
+                    </td>}
+                else
+                {
+                    <td></td>}
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.InstallationAmount)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.GodownName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AreaName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { CustomerId = item.CustomerID }) |
+
+                    @Html.ActionLink("Delete", "Delete", new { CustomerId = item.CustomerID })
+                </td>
+            </tr>
+
+        }
+
+    </table>*@
+
+
+
+
+

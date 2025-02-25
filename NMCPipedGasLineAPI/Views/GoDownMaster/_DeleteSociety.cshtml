@@ -1,0 +1,32 @@
+﻿@model NMCPipedGasLineAPI.Models.GodownMaster
+<div>
+
+
+    @using (Html.BeginForm())
+    {
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-row">
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group col-md-6">
+            <label for="inputPassword">Password<i class="text-danger">*</i></label>
+            <input type="password" id="password" class="form-control" />    
+          
+            <label style="color:red;" id="pass1"></label>
+
+        </div>
+            @*<div class="form-group col-md-6">
+                <label for="inputPassword">Password<i class="text-danger">*</i></label>
+                @Html.TextBoxFor("Password", new { @class = "form-control", @placeholder = "Password", @MaxLength = "100" })
+                @Html.ValidationMessageFor("Password", "", new { @class = "text-danger" })
+                <label style="color:red;" id="Password"></label>
+            </div>*@
+        </div>
+        }
+    </div>
+<style>
+    .form-control {
+        width: 446px;
+    }
+</style>

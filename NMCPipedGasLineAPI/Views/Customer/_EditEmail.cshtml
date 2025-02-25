@@ -1,0 +1,47 @@
+﻿@model NMCPipedGasLineAPI.Models.Customer
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-row">
+        @Html.HiddenFor(model => model.CustomerID)
+
+            <div class="form-group col-md-6">
+                <label for="inputPassword4">Email<i class="text-danger">*</i></label>
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email", @MaxLength = "100" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                <label style="color:red;" id="Email1"></label>
+            </div>
+        </div>
+
+        @*<div class="form-group">
+
+
+                <div class="col-md-12 d-flex justify-content-end px-0">
+                    <a href='@Url.Action("SendWelcomeMail", "Customer")' class="mr-2 btn btn-dark">Cancel</a>
+
+                    <input type="button" value="Save" id="save" class="btn btn-dark-success " />
+                </div>
+            </div>*@
+
+
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+
+
+</script>
+<style>
+    .form-control {
+        width:446px;
+    }
+</style>

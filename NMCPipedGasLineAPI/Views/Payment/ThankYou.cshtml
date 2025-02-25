@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "ThankYou";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+}
+<script>
+    function confirmUser() {
+        window.location.href = "https://nmcadmin.azurewebsites.net/Payment/PaymentHistory";
+    }
+
+    $(document).ready(function () {
+        var getUrl = window.location;
+        var productId = @Html.Raw(Json.Encode(ViewBag.Student));
+        if (getUrl == "https://nmcadmin.azurewebsites.net/payment/thankyou") {
+          window.location.href = "https://nmcadmin.azurewebsites.net/Payment/ThankYou?code=" + productId + "";
+        }
+     });
+</script>
+<div class="text-center">
+
+    @if (Session["AuthStatus"] != null)
+    {
+        <h2>Thank You !</h2>
+
+        if (Session["AuthStatus"].ToString() == "0300")
+        {
+            <h3>Please check Your Email for Bill Informtation </h3>
+        }
+        else
+        {<h3>We're Sorry!, but something went wrong. Please try again. </h3>}
+
+        <hr />
+
+        <input value="continue to homepage" onclick="confirmUser()"  class="btn btn-dark-success"/>
+
+    }
+
+
+
+    @{
+        var posts = Session["paytmParams"] as List<string>;
+        if (posts != null)
+        {
+            <p>Key</p>
+            foreach (var item in posts)
+            {
+
+                <p>@item</p>
+            }
+        }
+
+        var posts1 = Session["paytmParams1"] as List<string>;
+        if (posts1 != null)
+        {<p>Key</p>
+            foreach (var item1 in posts1)
+            {
+                <p>@item1</p>
+            }
+        }
+
+    }
+</div>
+

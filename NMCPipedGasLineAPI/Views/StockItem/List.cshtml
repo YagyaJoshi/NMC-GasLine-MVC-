@@ -1,0 +1,130 @@
+﻿@model IEnumerable<NMCPipedGasLineAPI.Models.StockItemMaster>
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Session["RoleName"].ToString() == "Super Admin")
+{
+    <div style="float:right">
+
+        <button class="btn btn-dark-success" onclick="location.href='@Url.Action("Index", "StockItem")';return false;">Create New</button>
+    </div>}
+
+    <br /><br />
+    @if (ViewBag.Error != null)
+    {
+
+        <div style="color:green;">
+
+            @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+        </div>
+
+    }
+
+    <br />
+    <table id="myTable" class="table-full table table-bordered table-responsive text-nowrap">
+        <thead>
+            <tr>
+                <th>Stock Item Name</th>
+                <th>Rate (Rs)</th>
+                <th>Company Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    </table>
+
+    <style media="all" type="text/css">
+        .alignRight {
+            text-align: right;
+        }
+    </style>
+
+    <script>
+
+    window.onload = window.history.forward(0);
+    function confirmUser(data) {
+        var ask = confirm("Are you sure you want to InActive this");
+        if (ask) {
+            window.location = "Delete?StockItemId=" + data;
+        }
+    }
+
+    $(document).ready(function () {
+        $("#myTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/StockItem/LoadData",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "StockItemName", "name": "StockItemName", "autoWidth": true },
+                { "data": "Rate", "name": "Rate", "autoWidth": true, "sClass": "alignRight" },
+                { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
+
+                {
+                    data: { StockItemId: "StockItemId", IsGas: "IsGas", NoEdit:"NoEdit" }, "bSearchable": false,
+
+                    bSortable: false,
+
+                     @if (Session["RoleName"].ToString() == "Super Admin")
+                     {
+                         <text>
+
+                    mRender: function (data, type, row) {
+                        if (data.IsGas == true)
+                        {
+                            //if (data.NoEdit != 1) {
+
+                            return '<a href=Add?StockItemId=' + data.StockItemId + ' class="btn btn-sm btn-dark-success">Add</a>'
+                           + ' <a href=Edit?StockItemId=' + data.StockItemId + ' class="btn btn-sm btn-light-success">Edit</a>'
+                                    + ' <a href=#  class="btn btn-sm btn-dark-success"  onclick=confirmUser("' + data.StockItemId + '")>Inactive</a>'
+                                    + ' <a href=HistoryList?StockItemId=' + data.StockItemId + '  class="btn btn-sm btn-dark-success">Rate History</a>'
+                            //} else
+                            //{
+                            //    return   ' <a href=#  class="btn btn-sm btn-dark-success"  onclick=confirmUser("' + data.StockItemId + '")>Inactive</a>'
+                            //        + ' <a href=HistoryList?StockItemId=' + data.StockItemId + '  class="btn btn-sm btn-dark-success">Rate History</a>'
+                            //}
+                        }
+                        else
+                        {
+                            return '<a href=Edit?StockItemId=' + data.StockItemId + ' class="btn btn-sm btn-dark-success">Add</a>'
+                            + ' <a href=Edit?StockItemId=' + data.StockItemId + ' class="btn btn-sm btn-light-success">Edit</a>'
+                                + ' <a href=#  class="btn btn-sm btn-dark-success"  onclick=confirmUser("' + data.StockItemId + '")>Inactive</a>'
+                        }
+
+                    }
+                        </text>
+                     }
+
+                     else
+                     {   <text>
+
+                        mRender: function (data, type, row) {
+
+                            if (data.IsGas == true)
+                            {
+
+                                return  ' <a href=HistoryList?StockItemId=' + data.StockItemId + '  class="btn btn-sm btn-dark-success">Rate History</a>'
+                            }
+                            else
+                            {
+                                return '<a href=Edit?StockItemId=' + data.StockItemId + ' class="btn btn-sm btn-light-success">Edit</a>'
+                            }
+
+                        }
+                            </text>
+                     }
+
+                }
+            ]
+        });
+    });
+    </script>
+
+
+

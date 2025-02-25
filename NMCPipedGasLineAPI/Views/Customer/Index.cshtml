@@ -1,0 +1,509 @@
+﻿@model NMCPipedGasLineAPI.Models.Customer
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+
+
+@using (Html.BeginForm("Index", "Customer", FormMethod.Post))
+{
+    @*@Html.AntiForgeryToken()*@
+
+    <div class="form-horizontal">
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Customer Details</a></li>
+                <li><a href="#tabs-2">Deposite Details</a></li>
+                @*<li><a href="#tabs-3">Tab 3</a></li>*@
+            </ul>
+            <div id="tabs-1">
+
+                @if (ViewBag.Error != null)
+                {
+
+                <div style="color:red;">
+
+                    @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+                </div>
+
+                }
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.RadioButtonFor(model => model.CustomerType, "Tenant", true)
+                        <label for="inputEmail4">Tenant</label>
+                        @Html.RadioButtonFor(model => model.CustomerType, "Owner", false)   <label for="inputEmail4">Owner</label>
+                        @Html.ValidationMessageFor(model => model.CustomerType, "", new { @class = "text-danger" })<br />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Company</label>
+                        @Html.DropDownListFor(model => model.CompanyId,
+                  new SelectList(Model.Company, "Id", "CompanyName"), "Please Select Company ", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Area</label>
+                        @Html.DropDownListFor(m => m.AreaId, new SelectList(Model.Area, "AreaId", "AreaName"), "Please Select Area", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputGoDown">Society</label>
+                        @Html.DropDownListFor(model => model.GodownId,
+                              new SelectList(Model.GoDown, "Id", "Name"), "Please Select GoDown", new { @class = "form-control" })
+                        @Html.HiddenFor(m => m.GodownName)
+                        @Html.HiddenFor(m => m.ClosingBalance)
+                        @Html.HiddenFor(m => m.ClosingRedg)
+                        @Html.HiddenFor(m => m.OwnerId)
+                        @Html.HiddenFor(m => m.BillDate)
+                        @Html.ValidationMessageFor(model => model.GodownId, "", new { @class = "text-danger" })
+
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Name</label>
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name" })
+
+                        @Html.HiddenFor(m => m.CustomerID)
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">FlatNo</label>
+                        @Html.TextBoxFor(model => model.FlatNo, new { @class = "form-control", @placeholder = "FlatNo" })
+                        @Html.ValidationMessageFor(model => model.FlatNo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Address</label>
+                        @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @placeholder = "Address", @MaxLength = "50" })
+
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Phone</label>
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Phone" })
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Email</label>
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email" })
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Installation Date</label>
+                        @Html.EditorFor(model => model.DateofInstallation, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.DateofInstallation, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Meter No.</label>
+                        @Html.EditorFor(model => model.MeterNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Meter No" } })
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">New Meter Reading</label>
+                        @Html.EditorFor(model => model.NewMeterReading, new { htmlAttributes = new { @class = "form-control", @placeholder = "New Meter Reading" } })
+                    </div>
+
+                    @if (Model.BillNo != null)
+                    {<div class="form-group col-md-6">
+                            <label for="inputArea">Bill No.</label>
+                            @Html.TextBoxFor(model => model.BillNo, new { @class = "form-control", @Readonly = true, @placeholder = "Bill No" })
+
+                        </div> }
+                    else
+                    { <div class="form-group col-md-6">
+                            <label for="inputArea">Bill No.</label>
+                            @Html.TextBoxFor(model => model.BillNo, new { @class = "form-control", @placeholder = "Bill No" })
+
+                        </div>}
+
+
+                </div>
+
+
+                @*<div class="form-row">
+
+
+            <div class="form-group col-md-6">
+                <label for="inputArea">Bill No.</label>
+                @Html.TextBoxFor(model => model.BillNo, new { @class = "form-control", @placeholder = "Bill No" })
+
+            </div>
+
+        </div>*@
+
+                <div id="OwnerDetails" style="display:none">
+                    Owner Details
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputArea">Name</label>
+                            @Html.TextBoxFor(model => model.OwnerName, new { @class = "form-control", @placeholder = "Name" })
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="inputArea">Phone</label>
+                            @Html.TextBoxFor(model => model.OwnerPhone, new { @class = "form-control", @placeholder = "Phone" })
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+
+                        <div class="form-group col-md-6">
+                            <label for="inputArea">Email</label>
+                            @Html.TextBoxFor(model => model.OwnerEmail, new { @class = "form-control", @placeholder = "Email" })
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="inputArea">Address</label>
+                            @Html.TextAreaFor(model => model.OwnerAddress, new { @class = "form-control", @placeholder = "Address", @MaxLength = "50" })
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div id="tabs-2">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.RadioButtonFor(model => model.PaymentTypeId, "251B4F15-7DB8-4033-8796-9F41605C7A62", true)
+                        <label for="inputCash">Cash</label>
+                        @Html.RadioButtonFor(model => model.PaymentTypeId, "25C65187-6DB0-426C-B2E4-C53653F91F7D", false)   <label for="inputCheque">Cheque</label>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Item</label>
+                        @Html.DropDownListFor(model => model.StockItemId,
+                       new SelectList(Model.StockItem, "StockItemId", "StockItemName"), "Please Select Item ", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Amount</label>
+                        @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", @placeholder = "Amount" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Minimum Charage</label>
+                        @Html.TextBoxFor(model => model.MinAmt, new { @class = "form-control", @placeholder = "Minimum Charage" })
+
+                    </div>
+
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Reconnection Amt.</label>
+                        @Html.TextBoxFor(model => model.ReconnectionAmt, new { @class = "form-control", @placeholder = "Reconnection Amt" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Installation Amount</label>
+                        @Html.TextBoxFor(model => model.InstallationAmount, new { @class = "form-control", @placeholder = "Installation Amount" })
+
+                    </div>
+
+                </div>
+
+                <div class="form-row" id="cash" style="display:none">
+
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Cheque No</label>
+                        @Html.TextBoxFor(model => model.ChequeNo, new { @class = "form-control", @placeholder = "Cheque No" })
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">Bank Name</label>
+                        @Html.TextBoxFor(model => model.BankName, new { @class = "form-control", @placeholder = "Bank Name" })
+
+                    </div>
+
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6" id="Acash" style="display:none">
+                        <label for="inputArea">Bank Account No</label>
+                        @Html.TextBoxFor(model => model.AccountNo, new { @class = "form-control", @placeholder = "Bank Account No" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.CheckBoxFor(m => m.isPaid)
+                        <label for="inputArea">Is Paid</label>
+
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">CGST</label>
+                        @Html.TextBoxFor(model => model.CGST, new { @class = "form-control",@readonly ="readonly", @placeholder = "CGST" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputArea">SGST</label>
+                        @Html.TextBoxFor(model => model.SGST, new { @class = "form-control", @readonly = "readonly" ,@placeholder = "SGST" })
+                    </div>
+
+                </div>
+            </div>
+            @*<div id="tabs-3">
+                    Content 3
+                </div>*@
+        </div>
+        <br />
+        @*<input type="hidden" id="selectedTab" name="selectedTab" value="@ViewBag.SelectedTab" />*@
+        <input type="submit" value="Submit" />
+
+
+
+
+    </div>
+
+    if (ViewBag.Error != null)
+    { <div style="color:red;">
+            @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+        </div>
+    }
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "List")
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    @if(Model.CustomerType == "Tenant")
+    {<text>
+    $("#OwnerDetails").show();
+    </text>
+
+    }
+
+
+    @if(Model.PaymentTypeId == "25C65187-6DB0-426C-B2E4-C53653F91F7D")
+    {<text>
+    $("#cash").show();
+    $("#Acash").show();
+    </text>
+
+    }
+
+    $(document).ready(function () {
+
+        $("input[name='CustomerType']").on("change", function () {
+            if ($(this).val() == "Tenant") {
+                $("#OwnerDetails").show();
+                $("#OwnerName").val("");
+                $("#OwnerAddress").val("");
+                $("#OwnerEmail").val("");
+                $("#OwnerPhone").val("");
+            }
+            else { $("#OwnerDetails").hide(); }
+        });
+        $("input[name='PaymentTypeId']").on("change", function () {
+
+            if ($(this).val() == "25C65187-6DB0-426C-B2E4-C53653F91F7D") {
+                $("#cash").show();
+                $("#Acash").show();
+                $("#ChequeNo").val("");
+                $("#BankName").val("");
+                $("#AccountNo").val("");
+            }
+            else {
+                $("#cash").hide();
+                $("#Acash").hide();
+            }
+        });
+        $("#ReconnectionAmt,#Amount,#MinAmt,#InstallationAmount").change(function () {
+            
+            if ($("#ReconnectionAmt").val() == "") { $("#ReconnectionAmt").val(0) }
+            if ($("#Amount").val() == "") { $("#Amount").val(0) }
+            if ($("#MinAmt").val() == "") { $("#MinAmt").val(0) }
+            if ($("#InstallationAmount").val() == "") { $("#InstallationAmount").val(0) }
+            var ReconnectionAmt = parseFloat($("#ReconnectionAmt").val());
+            var InstallationAmount = parseFloat($("#InstallationAmount").val());
+            var Amount = parseFloat($("#Amount").val());
+            var MinAmt = parseFloat($("#MinAmt").val());
+            var Totalamount = ReconnectionAmt + Amount + MinAmt + InstallationAmount;
+            Totalamount = (Totalamount / 100) * 9;
+            $("#SGST").val(Totalamount);
+            $("#CGST").val(Totalamount);
+        })
+
+    });
+
+    $(function () {
+           var selected_tab = 0;
+           var tabs = $("#tabs").tabs({
+                select: function (e, i) {
+                    selected_tab = i.index;
+                }
+            });
+            selected_tab = $("#selectedTab").val() != "" ? parseInt($("#selectedTab").val()) : 0;
+            //tabs.tabs('select', selected_tab);
+            $("form").submit(function () {
+                $("#selectedTab").val(selected_tab);
+            });
+
+
+        $("select").each(function () {
+            if ($(this).find("option").length <= 1) {
+                $(this).attr("disabled", "disabled");
+            }
+        });
+
+        $("select").change(function () {
+            var value = 0;
+            if ($(this).val() != "") {
+                value = $(this).val();
+                if ($(this).attr("name") == "GodownId")
+                {
+                    if (value != "0") {
+                       $('#GodownName').val($('#GodownId').text().replace('Please select', ''))
+
+                    }
+
+                }
+
+
+            }
+            var id = $(this).attr("id");
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("MasterData", "Home")',
+                data: '{type: "' + id + '", value: "' + value + '", pagename: "customer"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var dropDownId;
+                    //alter(JSON.stringify(response.GoDown))
+                    var list;
+                    switch (id) {
+                        case "CompanyId":
+                            dropDownId = "#AreaId";
+                            list = response.Area;
+                            DisableDropDown("#AreaId");
+                            PopulateDropDown("#AreaId", list);
+                            dropDownId = "#StockItemId";
+                            list = response.StockItemList;
+                             $("#ReconnectionAmt").val(list[0].ReConnectionFee)
+                            DisableDropDown("#StockItemId");
+                            PopulateDropDown("#StockItemId", list);
+                        break;
+                        case "AreaId":
+                            dropDownId ="#GodownId";
+                            list = response.GoDown;
+                            DisableDropDown("#GodownId");
+                            PopulateDropDown("#GodownId", list);
+                            break;
+
+
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+
+    function DisableDropDown(dropDownId) {
+        $(dropDownId).attr("disabled", "disabled");
+        $(dropDownId).empty().append('<option selected="selected" value="">Please select</option>');
+    }
+
+    function PopulateDropDown(dropDownId, list) {
+        if (list != null && list.length > 0) {
+            $(dropDownId).removeAttr("disabled");
+            $.each(list, function () {
+                $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+            });
+        }
+    }
+
+    $(function () {
+        if ($("#CountryId").val() != "" && $("#StateId").val() != "" && $("#CityId").val() != "" && $("#AreaId").val() != "" && $("CompanyId").val() !="") {
+            var message = "GoDown: " + $("#GoDownId option:selected").text();
+            message += "\nCompany: " + $("#CompanyId option:selected").text();
+            message += "\nArea: " + $("#AreaId option:selected").text();
+
+        }
+    });
+
+</script>
+
+
+
+
+
+
+@section Scripts {
+
+
+
+
+    @*@Scripts.Render("~/bundles/jqueryui")
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('input[type=datetime]').datepicker({
+                    dateFormat: "dd/M/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-60:+0"
+                });
+
+            });
+        </script>*@
+}

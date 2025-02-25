@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@if (ViewBag.Error != null)
+    {
+
+<div style="color:red;">
+
+    @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+</div>
+
+    }

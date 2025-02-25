@@ -1,0 +1,211 @@
+﻿@model NMCPipedGasLineAPI.Models.Customer
+@{
+    /**/
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("ExportToExcel", "ExcelImport", FormMethod.Post))
+{
+
+    <h4>Bill Export</h4>
+    <hr />
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputCompany">Company<i class="text-danger">*</i></label>
+            @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.Company, "Id", "CompanyName"), "Please Select Company", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputArea">Area<i class="text-danger">*</i></label>
+            @Html.DropDownListFor(m => m.AreaId, new SelectList(Model.Area, "AreaId", "AreaName"), "Please Select Area", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputGoDown">Society<i class="text-danger">*</i></label>
+            @Html.DropDownListFor(model => model.GodownId,
+                  new SelectList(Model.GoDown, "Id", "Name"), "Please Select Society", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.GodownId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="inputbilltype">Bill Type<i class="text-danger">*</i></label>
+            @Html.DropDownListFor(model => model.BillTypeId, new List<SelectListItem>
+             {
+         
+    new SelectListItem{ Text="Gas Consume", Value = "F2653C96-46D8-4609-A5ED-8568C129BAA3" },
+    new SelectListItem{ Text="Reconnection", Value = "666919E2-BA55-49C0-8FA7-56EDE1DA567B" },
+    new SelectListItem{ Text="Call Charges", Value = "DD0E791C-1456-4E1F-89F2-A4D916A8496D" },
+     new SelectListItem{ Text="Name Change", Value = "52A648FA-587E-4A56-A893-0A1366B81CEC" }
+       }, "Please Select Bill Type", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BillTypeId, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+
+
+    if (ViewBag.Error != null)
+    {
+        <div style="color:green;">
+            @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+        </div>
+
+    }
+
+    <div class="form-group">
+        <div class="col-md-12 d-flex justify-content-end px-0">
+            <input type="submit" value="Export" class="btn btn-dark-success" />
+        </div>
+    </div>
+
+
+}
+    <script type="text/javascript">
+
+
+
+
+    window.onload = window.history.forward(0);
+    $(function () {
+        $("select").each(function () {
+            if ($(this).find("option").length <= 1) {
+                $(this).attr("disabled", "disabled");
+            }
+        });
+
+        $("select").change(function () {
+            var value = 0;
+            if ($(this).val() != "") {
+                value = $(this).val();
+            }
+            var id = $(this).attr("id");
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetSocietyBillWise", "ExcelImport")',
+                data: '{type: "' + id + '", value: "' + value + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var dropDownId;
+                    //alter(JSON.stringify(response.GoDown))
+                    var list;
+                    switch (id) {
+                        case "CompanyId":
+                            dropDownId = "#AreaId";
+                            list = response.Area;
+                            DisableDropDown("#AreaId");
+                            DisableDropDown("#GodownId");
+                            $("#BillTypeId").val('');
+                            PopulateDropDown("#AreaId", list);
+                            break;
+                        
+                        case "AreaId":
+
+                            dropDownId ="#GodownId";
+                            list = response.GoDown;
+                            DisableDropDown("#GodownId");
+                            $("#BillTypeId").val('');
+                            PopulateDropDown("#GodownId", list);
+                            break;
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+
+    function DisableDropDown(dropDownId) {
+        $(dropDownId).attr("disabled", "disabled");
+        $(dropDownId).empty().append('<option selected="selected" value="0">Please select</option>');
+    }
+
+    function PopulateDropDown(dropDownId, list) {
+        if (list != null && list.length > 0) {
+            $(dropDownId).removeAttr("disabled");
+            $.each(list, function () {
+                $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+            });
+        }
+    }
+
+
+
+
+    $(function () {
+        if ($("#CountryId").val() != "" && $("#StateId").val() != "" && $("#CityId").val() != "" && $("#AreaId").val() != "" && $("CompanyId").val() !="") {
+            var message = "GoDown: " + $("#GoDownId option:selected").text();
+            message += "\nCompany: " + $("#CompanyId option:selected").text();
+            message += "\nArea: " + $("#AreaId option:selected").text();
+
+        }
+
+
+    });
+
+
+
+    function selectddl(value, id)
+    {
+        $.ajax({
+                type: "POST",
+                url: '@Url.Action("MasterData", "Home")',
+                data: '{type: "' + id + '", value: "' + value + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var dropDownId;
+                    //alter(JSON.stringify(response.GoDown))
+                    var list;
+                    switch (id) {
+                        case "CompanyId":
+                            dropDownId = "#AreaId";
+                            list = response.Area;
+                            DisableDropDown("#AreaId");
+                            $("#BillTypeId").val('');
+                           
+                            PopulateDropDown("#AreaId", list);
+                            break;
+                        case "AreaId":
+
+                            dropDownId ="#GodownId";
+                            list = response.GoDown;
+                            DisableDropDown("#GodownId");
+                            $("#BillTypeId").val('');
+                            PopulateDropDown("#GodownId", list);
+                            break;
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+
+    $(document).ready(function () {
+
+        @if(@Model.CompanyName != null)
+        { <text>
+
+
+            selectddl('@Model.CompanyId', $("#CompanyId").attr("id"));
+        </text>
+        }
+    });
+    </script>
+

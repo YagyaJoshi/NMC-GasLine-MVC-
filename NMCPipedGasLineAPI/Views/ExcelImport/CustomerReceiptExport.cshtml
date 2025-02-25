@@ -1,0 +1,51 @@
+﻿@model NMCPipedGasLineAPI.Models.Customer
+@using System.Data;
+
+@{
+    ViewBag.Title = "CustomerReceiptExport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script>
+    window.onload = window.history.forward(0);
+
+
+</script>
+
+@using (Html.BeginForm("CustomerReceiptExport", "ExcelImport", FormMethod.Post))
+{<h4>Customer Receipt Export</h4>
+    <hr />
+
+
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="inputEmail4">Company<i class="text-danger">*</i></label>
+            @Html.DropDownListFor(model => model.CompanyId,
+      new SelectList(Model.Company, "Id", "CompanyName"), "Please Select Company ", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+        </div>
+
+        @*<div class="form-group col-md-6">
+                <label for="inputbilltype">
+                    Bill Type <i class="text-danger">*</i>
+                </label>
+                @Html.DropDownListFor(model => model.BillTypeId, new SelectList(Model.BillTypeList, "Id", "Type"), "Please Select BillType", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BillTypeId, "", new { @class = "text-danger" })
+            </div>*@
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-12 d-flex justify-content-end px-0">
+            <input type="submit" value="Export (with bill)" class="btn btn-dark-success btn-space" style="margin-right: 5px;" />
+           
+                <input type="submit" value="Export (without bill)" class="btn btn-dark-success btn-space" formaction="ExportPaymentWithoutBill" />
+
+            </div>
+    </div>
+
+
+}
+@*<button class="btn btn-dark-success" onclick="location.href='@Url.Action("ExportPaymentWithoutBill", "ExcelImport",new { CompanyId = Model.CompanyId })'">Export Without Bills</button>*@
+

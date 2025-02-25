@@ -1,0 +1,2908 @@
+﻿@model NMCPipedGasLineAPI.Models.BillInformation
+@{
+    ViewBag.Title = "Gas Bill";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+
+
+}
+
+
+<style>
+
+
+    .form-control {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 4px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border-radius: 0px;
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        box-sizing: border-box;
+    }
+
+        label.form-control {
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            height: auto !important;
+        }
+
+    .cst-from-grp {
+        float: right;
+        margin-right: 0 !important;
+        margin: 0 auto;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .form-group:first-child {
+        font-weight: bold;
+    }
+
+    label.form-control {
+        color: #000 !important;
+        margin-left: 10px;
+        font-weight: normal !important;
+    }
+
+    .cst-formctr-label {
+        margin: 0 auto !important;
+        margin-right: 0 !important;
+    }
+
+    .jsty-content-left {
+        justify-content: left !important;
+        min-width: 200px
+    }
+
+    .lable-content-span {
+        float: left;
+        min-width: 200px;
+        justify-content: left;
+        text-align: left;
+    }
+
+    .width100 {
+        width: 100%;
+    }
+
+    .cst-formctr-label-footer {
+        margin: 0 auto !important;
+        margin-right: 0 !important;
+        align-items: inherit;
+        width: 200px;
+        text-align: right;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+    }
+</style>
+
+
+
+@if (Model.BillType == "BFBC4C62-B98B-4C18-96E7-2C8327886BCB")
+{
+    <div>
+        <div class="row_dummy ">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 float-left">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;margin-bottom: 20px;font-size: 21px;line-height: inherit;color: #333;border: 0;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px; text-align:center;">Installation Bill</legend>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-12 col-md-12 col-lg-6 grid-rates-align" style="margin:0 auto ">
+                    <div class="form-inline card">
+
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Name</span>
+                                            <span class="text-right">:</span>
+                                        </label> <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                            @Model.PartyName
+                                        </label>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Address</span> <span class="text-right">:</span>
+                                        </label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed; ">
+                                            @Model.Address
+
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Bill No.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                            @Model.BillNo
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Bill Date</span>
+                                            <span class="text-right">:</span>
+                                        </label>
+
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            @Model.BillDate
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Connection Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.ReconnectionAmt
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Meter Inst Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.Arrears
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="row_dummy width100">
+                                <div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">SGST</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                Rs @Model.SGST
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row_dummy width100">
+
+                                <div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                                <span class="lable-content-span">CGST</span>
+                                                <span class="text-right">:</span>
+                                            </label>
+
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                                Rs @Model.CGST
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Amt.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            <b>  Rs @Model.TotalAmt</b>
+
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+
+                                @if (@Model.PaymentDue != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Previous Due</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>   Rs @Model.PaymentDue </b>
+                                            </label>
+                                        </div>
+                                    </div>}
+
+
+
+                                else if (@Model.PreviousDiposite != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">deposit</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs @Model.PreviousDiposite </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                }
+
+
+
+                            </div>
+                            @if (@Model.TotalPaid != 0)
+                            {
+                                <div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Paid</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs  @Model.TotalPaid </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            }
+
+                        </div>
+
+
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Balance Due</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                            <b>   Rs @Model.Round </b>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Difference</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.Diff
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (Model.BillType == "F2653C96-46D8-4609-A5ED-8568C129BAA3")
+{
+
+    <div>
+        <div class="row_dummy">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 float-left">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;margin-bottom: 20px;font-size: 21px;line-height: inherit;color: #333;border: 0;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px; text-align:center;">Gas Bill</legend>
+                </div>
+            </div>
+
+
+            <div class="row form-inline">
+                <div class="col-sm-12 col-md-12 col-lg-6 ">
+                    <div class="card">
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy ">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Name</span>
+                                    <span class="text-right">:</span>
+                                </label>
+
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin-left:0;">
+                                    @Model.PartyName
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Address</span>
+                                    <span class="text-right">:</span>
+                                </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin-left:0;">
+                                    @Model.Address
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-6 ">
+
+                    <div class='card'>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Bill No.</span>
+                                    <span class="text-right">:</span>
+                                </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.BillNo
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Bill Period </span>  <span class="text-right">:</span> </label>
+
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.BillPeriod
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Bill Date</span> : </label> <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.BillDate
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Due Date</span> : </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.DueDate
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="">
+                                <div class="form-group mb-2_dummy">
+                                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Closing Rdg.</span> : </label>
+                                    <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                        @Model.ClosingRedg
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="">
+                                <div class="form-group mb-2_dummy">
+                                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Closing Date</span> : </label>
+                                    <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                        @Model.cloasingdate
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+
+            <div class="row form-inline">
+                @*<div class="col-sm-12 col-md-4">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Nameabc</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.PartyName
+                        </label>
+                    </div>*@
+
+                @*<div class="col-sm-12 col-md-4">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Bill No.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.BillNo
+                        </label>
+                    </div>*@
+
+
+                @*<div class="col-sm-12 col-md-4">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Bill Period</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.BillPeriod
+                        </label>
+                    </div>*@
+
+
+
+            </div>
+            <div class="row">
+
+                @*<div class="col-sm-12 col-md-4">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Address</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.Address
+                        </label>
+                    </div>*@
+
+                @*<div class="col-sm-12 col-md-4">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Bill Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.BillDate
+                        </label>
+                    </div>*@
+                @*<div class="col-sm-12 col-md-4">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Due Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.DueDate
+                        </label>
+                    </div>*@
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Previous Rdg.</label>
+                            <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0;">
+                                @Model.PreviousRedg
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Previous Reading Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+                                @Model.Previousbilldate
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Current(SCM)</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+                                @Model.CurrentScm
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Current(KGS)</label>
+                            <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+
+                                @Model.CurrentKGS
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                @*<div class="col-sm-12 col-md-6">
+                        <div class="form-inline">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Current(SCM)</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.CurrentScm
+                                </label>
+                            </div>
+                        </div>
+                    </div>*@
+                @*<div class="col-sm-12 col-md-6">
+                        <div class="form-inline">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Current(Kgs.)</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                    @Model.CurrentKGS
+                                </label>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6"></div>
+                <div class="col-sm-12 col-md-12 col-lg-6 grid-rates-align">
+                    <div class="form-inline card">
+
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Rate incl. of all taxes (KGS)</span>
+                                            <span class="text-right">:</span>
+                                        </label> <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                            @Model.Rate
+                                        </label>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Gas Consume</span> <span class="text-right">:</span>
+                                        </label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed; ">
+                                            Rs @Model.ConsumeUnit
+
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">SGST</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                            Rs @Model.SGST
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">CGST</span>
+                                            <span class="text-right">:</span>
+                                        </label>
+
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.CGST
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Service Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.ServiceAmt
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Delayed Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.Dalychg
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            @if (@Model.ConsumeUnit == 0)
+                            {
+                                <div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Min Payable Amt.</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                                Rs @Model.MinAmt
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Amt.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            <b>  Rs @Model.TotalAmt</b>
+
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+
+                                @if (@Model.PaymentDue != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Previous Due</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>   Rs @Model.PaymentDue </b>
+                                            </label>
+                                        </div>
+                                    </div>}
+
+
+
+                                else if (@Model.PreviousDiposite != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Deposit</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs @Model.PreviousDiposite </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                }
+
+
+
+                            </div>
+                            @if (@Model.TotalPaid != 0)
+                            {
+                                <div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Paid</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs  @Model.TotalPaid </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            }
+
+                        </div>
+
+
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Balance Due</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                            <b>   Rs @Model.Round </b>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Difference</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.Diff
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        @*<div class="row_dummy width100">
+                                <div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Delay Chg.</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                                Rs @Model.LateFee
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>*@
+
+                    </div>
+                </div>
+            </div>
+
+            @foreach (var item in @Model.delaychglist.ToString().Split(','))
+            {
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-6"></div>
+                    <div class="col-sm-12 col-md-6">
+
+                        <div class="form-inline_dummy card p-2">
+                            <div class="form-group mb-0">
+                                <div class="col-sm-12 col-md-12 text-right">
+
+                                    @item
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            }
+
+            <div class="row_dummy width100">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy cst-from-grp">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            @if (Model.obj1 == "")
+            {
+                <div class="form-group">
+                    <div class="center">
+                        <a href='@Url.Action("CustomerReadingHistory1", "Payment")' class="mr-2 btn btn-dark">Go Back</a>
+                        <a href='@Url.Action("PaymentPage", "Payment")' class="mr-2 btn  btn-light-success">Proceed to Payment</a>
+
+                    </div>
+                </div>
+            }
+
+            @*<div style="color:red;">
+
+                    @(ViewBag.obj1 != null ? ViewBag.obj1.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.obj2 != null ? ViewBag.obj2.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.currentkgs != null ? ViewBag.currentkgs.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.daysDifference != null ? ViewBag.daysDifference.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.perDayConsume != null ? ViewBag.perDayConsume.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.gasConsume1 != null ? ViewBag.gasConsume1.ToString() : "")
+                </div>
+
+                <div style="color:red;">
+
+                    @(ViewBag.PreviousBillDate != null ? ViewBag.PreviousBillDate.ToString() : "")
+                    @(ViewBag.DateTime != null ? ViewBag.DateTime.ToString() : "")
+                </div>*@
+
+        </div>
+    </div>
+
+}
+else if (Model.BillType == "52A648FA-587E-4A56-A893-0A1366B81CEC")
+{
+
+    <div>
+        <div class="row_dummy">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 float-left">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;margin-bottom: 20px;font-size: 21px;line-height: inherit;color: #333;border: 0;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px; text-align:center;">Name Change Bill</legend>
+                </div>
+            </div>
+
+
+            <div class="row form-inline">
+                <div class="col-sm-12 col-md-12 col-lg-6 ">
+                    <div class="card">
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy ">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Name</span>
+                                    <span class="text-right">:</span>
+                                </label>
+
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin-left:0;">
+                                    @Model.PartyName
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Address</span>
+                                    <span class="text-right">:</span>
+                                </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin-left:0;">
+                                    @Model.Address
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-6 ">
+
+                    <div class='card'>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Bill No.</span>
+                                    <span class="text-right">:</span>
+                                </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.BillNo
+                                </label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Bill Date</span> : </label> <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.BillDate
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Due Date</span> : </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.DueDate
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="">
+                                <div class="form-group mb-2_dummy">
+                                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Closing Rdg.</span> : </label>
+                                    <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                        @Model.ClosingRedg
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="">
+                                <div class="form-group mb-2_dummy">
+                                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Closing Date</span> : </label>
+                                    <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                        @Model.cloasingdate
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Previous Rdg.</label>
+                            <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0;">
+                                @Model.PreviousRedg
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Previous Reading Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+                                @Model.Previousbilldate
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Current(SCM)</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+                                @Model.CurrentScm
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Current(KGS)</label>
+                            <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+
+                                @Model.CurrentKGS
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6"></div>
+                <div class="col-sm-12 col-md-12 col-lg-6 grid-rates-align">
+                    <div class="form-inline card">
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Rate incl. of all taxes (KGS)</span>
+                                            <span class="text-right">:</span>
+                                        </label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            @Model.Rate
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Gas Consume</span> <span class="text-right">:</span>
+                                        </label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed; ">
+                                            Rs @Model.ConsumeUnit
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">SGST</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.SGST
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">CGST</span>
+                                            <span class="text-right">:</span>
+                                        </label>
+
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.CGST
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Service Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.ServiceAmt
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Name Change Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.ReconnectionAmt
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Amt.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            <b>  Rs @Model.TotalAmt</b>
+
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+
+                                @if (@Model.PaymentDue != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Previous Due</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>   Rs @Model.PaymentDue </b>
+                                            </label>
+                                        </div>
+                                    </div>}
+
+
+
+                                else if (@Model.PreviousDiposite != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">deposit</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs @Model.PreviousDiposite </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                }
+
+
+
+                            </div>
+                            @if (@Model.TotalPaid != 0)
+                            {
+                                <div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Paid</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs  @Model.TotalPaid </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            }
+
+                        </div>
+
+
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Balance Due</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                            <b>   Rs @Model.Round </b>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Difference</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.Diff
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Delay Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.LateFee
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            @foreach (var item in @Model.delaychglist.ToString().Split(','))
+            {
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-6"></div>
+                    <div class="col-sm-12 col-md-6">
+
+                        <div class="form-inline_dummy card p-2">
+                            <div class="form-group mb-0">
+                                <div class="col-sm-12 col-md-12 text-right">
+
+                                    @item
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            }
+
+            <div class="row_dummy width100">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy cst-from-grp">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            @if (Model.obj1 == "")
+            {
+                <div class="form-group">
+                    <div class="center">
+                        <a href='@Url.Action("CustomerReadingHistory1", "Payment")' class="mr-2 btn btn-dark">Go Back</a>
+                        <a href='@Url.Action("PaymentPage", "Payment")' class="mr-2 btn  btn-light-success">Proceed to Payment</a>
+
+                    </div>
+                </div>
+            }
+
+            @*<div style="color:red;">
+
+                    @(ViewBag.obj1 != null ? ViewBag.obj1.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.obj2 != null ? ViewBag.obj2.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.currentkgs != null ? ViewBag.currentkgs.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.daysDifference != null ? ViewBag.daysDifference.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.perDayConsume != null ? ViewBag.perDayConsume.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.gasConsume1 != null ? ViewBag.gasConsume1.ToString() : "")
+                </div>
+
+                <div style="color:red;">
+
+                    @(ViewBag.PreviousBillDate != null ? ViewBag.PreviousBillDate.ToString() : "")
+                    @(ViewBag.DateTime != null ? ViewBag.DateTime.ToString() : "")
+                </div>*@
+
+        </div>
+    </div>
+
+}
+else if (Model.BillType == "DD0E791C-1456-4E1F-89F2-A4D916A8496D")
+{
+
+    <div>
+        <div class="row_dummy">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 float-left">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;margin-bottom: 20px;font-size: 21px;line-height: inherit;color: #333;border: 0;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px; text-align:center;">Call Charges Bill</legend>
+                </div>
+            </div>
+
+
+            <div class="row form-inline">
+                <div class="col-sm-12 col-md-12 col-lg-6 ">
+                    <div class="card">
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy ">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Name</span>
+                                    <span class="text-right">:</span>
+                                </label>
+
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin-left:0;">
+                                    @Model.PartyName
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Address</span>
+                                    <span class="text-right">:</span>
+                                </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin-left:0;">
+                                    @Model.Address
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-6 ">
+
+                    <div class='card'>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Bill No.</span>
+                                    <span class="text-right">:</span>
+                                </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.BillNo
+                                </label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Bill Date</span> : </label> <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.BillDate
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Due Date</span> : </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.DueDate
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="">
+                                <div class="form-group mb-2_dummy">
+                                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Closing Rdg.</span> : </label>
+                                    <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                        @Model.ClosingRedg
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="">
+                                <div class="form-group mb-2_dummy">
+                                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Closing Date</span> : </label>
+                                    <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                        @Model.cloasingdate
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Previous Rdg.</label>
+                            <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0;">
+                                @Model.PreviousRedg
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Previous Reading Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+                                @Model.Previousbilldate
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Current(SCM)</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+                                @Model.CurrentScm
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Current(KGS)</label>
+                            <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+
+                                @Model.CurrentKGS
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6"></div>
+                <div class="col-sm-12 col-md-12 col-lg-6 grid-rates-align">
+                    <div class="form-inline card">
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Rate incl. of all taxes (KGS)</span>
+                                            <span class="text-right">:</span>
+                                        </label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            @Model.Rate
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Gas Consume</span> <span class="text-right">:</span>
+                                        </label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed; ">
+                                            Rs @Model.ConsumeUnit
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">SGST</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.SGST
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">CGST</span>
+                                            <span class="text-right">:</span>
+                                        </label>
+
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.CGST
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Service Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.ServiceAmt
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Min Payable Amt.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.MinAmt
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Call Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.ReconnectionAmt
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Amt.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            <b>  Rs @Model.TotalAmt</b>
+
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+
+                                @if (@Model.PaymentDue != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Previous Due</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>   Rs @Model.PaymentDue </b>
+                                            </label>
+                                        </div>
+                                    </div>}
+
+
+
+                                else if (@Model.PreviousDiposite != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">deposit</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs @Model.PreviousDiposite </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                }
+
+
+
+                            </div>
+                            @if (@Model.TotalPaid != 0)
+                            {
+                                <div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Paid</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs  @Model.TotalPaid </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            }
+
+                        </div>
+
+
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Balance Due</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                            <b>   Rs @Model.Round </b>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Difference</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.Diff
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Delay Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.LateFee
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            @foreach (var item in @Model.delaychglist.ToString().Split(','))
+            {
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-6"></div>
+                    <div class="col-sm-12 col-md-6">
+
+                        <div class="form-inline_dummy card p-2">
+                            <div class="form-group mb-0">
+                                <div class="col-sm-12 col-md-12 text-right">
+
+                                    @item
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            }
+
+            <div class="row_dummy width100">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy cst-from-grp">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            @if (Model.obj1 == "")
+            {
+                <div class="form-group">
+                    <div class="center">
+                        <a href='@Url.Action("CustomerReadingHistory1", "Payment")' class="mr-2 btn btn-dark">Go Back</a>
+                        <a href='@Url.Action("PaymentPage", "Payment")' class="mr-2 btn  btn-light-success">Proceed to Payment</a>
+
+                    </div>
+                </div>
+            }
+
+            @*<div style="color:red;">
+
+                    @(ViewBag.obj1 != null ? ViewBag.obj1.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.obj2 != null ? ViewBag.obj2.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.currentkgs != null ? ViewBag.currentkgs.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.daysDifference != null ? ViewBag.daysDifference.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.perDayConsume != null ? ViewBag.perDayConsume.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.gasConsume1 != null ? ViewBag.gasConsume1.ToString() : "")
+                </div>
+
+                <div style="color:red;">
+
+                    @(ViewBag.PreviousBillDate != null ? ViewBag.PreviousBillDate.ToString() : "")
+                    @(ViewBag.DateTime != null ? ViewBag.DateTime.ToString() : "")
+                </div>*@
+
+        </div>
+    </div>
+
+}
+else if (Model.BillType == "666919E2-BA55-49C0-8FA7-56EDE1DA567B")
+{
+
+    <div>
+        <div class="row_dummy">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 float-left">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;margin-bottom: 20px;font-size: 21px;line-height: inherit;color: #333;border: 0;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px; text-align:center;">Re Connection Bill</legend>
+                </div>
+            </div>
+
+
+            <div class="row form-inline">
+                <div class="col-sm-12 col-md-12 col-lg-6 ">
+                    <div class="card">
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy ">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Name</span>
+                                    <span class="text-right">:</span>
+                                </label>
+
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin-left:0;">
+                                    @Model.PartyName
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Address</span>
+                                    <span class="text-right">:</span>
+                                </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin-left:0;">
+                                    @Model.Address
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-6 ">
+
+                    <div class='card'>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Bill No.</span>
+                                    <span class="text-right">:</span>
+                                </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.BillNo
+                                </label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Bill Date</span> : </label> <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.BillDate
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Due Date</span> : </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.DueDate
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="">
+                                <div class="form-group mb-2_dummy">
+                                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Closing Rdg.</span> : </label>
+                                    <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                        @Model.ClosingRedg
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="">
+                                <div class="form-group mb-2_dummy">
+                                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Closing Date</span> : </label>
+                                    <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                        @Model.cloasingdate
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Previous Rdg.</label>
+                            <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0;">
+                                @Model.PreviousRedg
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Previous Reading Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+                                @Model.Previousbilldate
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Current(SCM)</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+                                @Model.CurrentScm
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Current(KGS)</label>
+                            <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+
+                                @Model.CurrentKGS
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6"></div>
+                <div class="col-sm-12 col-md-12 col-lg-6 grid-rates-align">
+                    <div class="form-inline card">
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Rate incl. of all taxes (KGS)</span>
+                                            <span class="text-right">:</span>
+                                        </label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            @Model.Rate
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Gas Consume</span> <span class="text-right">:</span>
+                                        </label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed; ">
+                                            Rs @Model.ConsumeUnit
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">SGST</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.SGST
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">CGST</span>
+                                            <span class="text-right">:</span>
+                                        </label>
+
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.CGST
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Service Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.ServiceAmt
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Min Payable Amt.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.MinAmt
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Re-Connection Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.ReconnectionAmt
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Amt.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            <b>  Rs @Model.TotalAmt</b>
+
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+
+                                @if (@Model.PaymentDue != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Previous Due</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>   Rs @Model.PaymentDue </b>
+                                            </label>
+                                        </div>
+                                    </div>}
+
+
+
+                                else if (@Model.PreviousDiposite != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">deposit</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs @Model.PreviousDiposite </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                }
+
+
+
+                            </div>
+                            @if (@Model.TotalPaid != 0)
+                            {
+                                <div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Paid</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs  @Model.TotalPaid </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            }
+
+                        </div>
+
+
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Balance Due</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                            <b>   Rs @Model.Round </b>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Difference</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.Diff
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Delay Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.LateFee
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            @foreach (var item in @Model.delaychglist.ToString().Split(','))
+            {
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-6"></div>
+                    <div class="col-sm-12 col-md-6">
+
+                        <div class="form-inline_dummy card p-2">
+                            <div class="form-group mb-0">
+                                <div class="col-sm-12 col-md-12 text-right">
+
+                                    @item
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            }
+
+            <div class="row_dummy width100">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy cst-from-grp">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            @if (Model.obj1 == "")
+            {
+                <div class="form-group">
+                    <div class="center">
+                        <a href='@Url.Action("CustomerReadingHistory1", "Payment")' class="mr-2 btn btn-dark">Go Back</a>
+                        <a href='@Url.Action("PaymentPage", "Payment")' class="mr-2 btn  btn-light-success">Proceed to Payment</a>
+
+                    </div>
+                </div>
+            }
+
+            @*<div style="color:red;">
+
+                    @(ViewBag.obj1 != null ? ViewBag.obj1.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.obj2 != null ? ViewBag.obj2.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.currentkgs != null ? ViewBag.currentkgs.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.daysDifference != null ? ViewBag.daysDifference.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.perDayConsume != null ? ViewBag.perDayConsume.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.gasConsume1 != null ? ViewBag.gasConsume1.ToString() : "")
+                </div>
+
+                <div style="color:red;">
+
+                    @(ViewBag.PreviousBillDate != null ? ViewBag.PreviousBillDate.ToString() : "")
+                    @(ViewBag.DateTime != null ? ViewBag.DateTime.ToString() : "")
+                </div>*@
+
+        </div>
+    </div>
+
+}
+else if (Model.BillType == "8E4ABB26-600E-4397-B42C-D9B9536574A1")
+{
+
+    <div>
+        <div class="row_dummy">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 float-left">
+                    <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;margin-bottom: 20px;font-size: 21px;line-height: inherit;color: #333;border: 0;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px; text-align:center;">Disconnection Bill</legend>
+                </div>
+            </div>
+
+
+            <div class="row form-inline">
+                <div class="col-sm-12 col-md-12 col-lg-6 ">
+                    <div class="card">
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy ">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Name</span>
+                                    <span class="text-right">:</span>
+                                </label>
+
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin-left:0;">
+                                    @Model.PartyName
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Address</span>
+                                    <span class="text-right">:</span>
+                                </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin-left:0;">
+                                    @Model.Address
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-6 ">
+
+                    <div class='card'>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                    <span class="lable-content-span">Bill No.</span>
+                                    <span class="text-right">:</span>
+                                </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.BillNo
+                                </label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Bill Date</span> : </label> <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.BillDate
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="form-group mb-2_dummy">
+                                <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Due Date</span> : </label>
+                                <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                    @Model.DueDate
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="">
+                                <div class="form-group mb-2_dummy">
+                                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Closing Rdg.</span> : </label>
+                                    <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                        @Model.ClosingRedg
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 p-0">
+                            <div class="">
+                                <div class="form-group mb-2_dummy">
+                                    <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Closing Date</span> : </label>
+                                    <label class="form-control cst-formctr-label" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                        @Model.cloasingdate
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Previous Rdg.</label>
+                            <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0;">
+                                @Model.PreviousRedg
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Previous Reading Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+                                @Model.Previousbilldate
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Current(SCM)</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+                                @Model.CurrentScm
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-inline_dummy card text-left">
+                        <div class="form-group_dummy mb-2_dummy">
+                            <label style="font-size: 14px; color:#333; text-align:left; font-family: sans-serif;font-weight:bold">Current(KGS)</label>
+                            <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;margin:0">
+
+                                @Model.CurrentKGS
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6"></div>
+                <div class="col-sm-12 col-md-12 col-lg-6 grid-rates-align">
+                    <div class="form-inline card">
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Rate incl. of all taxes (KGS)</span>
+                                            <span class="text-right">:</span>
+                                        </label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            @Model.Rate
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label class="jsty-content-left" style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">Gas Consume</span> <span class="text-right">:</span>
+                                        </label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed; ">
+                                            Rs @Model.ConsumeUnit
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">SGST</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label  cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.SGST
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">
+                                            <span class="lable-content-span">CGST</span>
+                                            <span class="text-right">:</span>
+                                        </label>
+
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.CGST
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Service Chg.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.ServiceAmt
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row_dummy width100">
+                                <div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Delay Chg.</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                                Rs @Model.PreviousLateFree
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            @*<div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Min Payable Amt.</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                                Rs @Model.MinAmt
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>*@
+
+
+
+                            @*<div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Re-Connection Chg.</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                                Rs @Model.ReconnectionAmt
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>*@
+
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Amt.</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            <b>  Rs @Model.TotalAmt</b>
+
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+
+                                @if (@Model.PaymentDue != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Previous Due</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>   Rs @Model.PaymentDue </b>
+                                            </label>
+                                        </div>
+                                    </div>}
+
+
+
+                                else if (@Model.PreviousDiposite != 0)
+                                {
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">deposit</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs @Model.PreviousDiposite </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                }
+
+
+
+                            </div>
+                            @if (@Model.TotalPaid != 0)
+                            {
+                                <div class="col-sm-12 col-md-12 p-0">
+                                    <div class="form-inline_dummy">
+                                        <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Total Paid</span> <span class="text-right">:</span></label>
+                                            <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                                <b>  Rs  @Model.TotalPaid </b>
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            }
+
+                        </div>
+
+
+                        <div class="row_dummy width100">
+
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Balance Due</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                            <b>   Rs @Model.Round </b>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-12 p-0">
+                                <div class="form-inline_dummy">
+                                    <div class="form-group mb-2_dummy cst-from-grp float-left width100">
+                                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;"><span class="lable-content-span">Difference</span> <span class="text-right">:</span></label>
+                                        <label class="form-control cst-formctr-label cst-formctr-label-footer" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                            Rs @Model.Diff
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            @foreach (var item in @Model.delaychglist.ToString().Split(','))
+            {
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-6"></div>
+                    <div class="col-sm-12 col-md-6">
+
+                        <div class="form-inline_dummy card p-2">
+                            <div class="form-group mb-0">
+                                <div class="col-sm-12 col-md-12 text-right">
+
+                                    @item
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            }
+
+            <div class="row_dummy width100">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group mb-2_dummy cst-from-grp">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 8px;margin-bottom: 8px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            @if (Model.obj1 == "")
+            {
+                <div class="form-group">
+                    <div class="center">
+                        <a href='@Url.Action("CustomerReadingHistory1", "Payment")' class="mr-2 btn btn-dark">Go Back</a>
+                        <a href='@Url.Action("PaymentPage", "Payment")' class="mr-2 btn  btn-light-success">Proceed to Payment</a>
+
+                    </div>
+                </div>
+            }
+
+            @*<div style="color:red;">
+
+                    @(ViewBag.obj1 != null ? ViewBag.obj1.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.obj2 != null ? ViewBag.obj2.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.currentkgs != null ? ViewBag.currentkgs.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.daysDifference != null ? ViewBag.daysDifference.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.perDayConsume != null ? ViewBag.perDayConsume.ToString() : "")
+                </div>
+                <div style="color:red;">
+
+                    @(ViewBag.gasConsume1 != null ? ViewBag.gasConsume1.ToString() : "")
+                </div>
+
+                <div style="color:red;">
+
+                    @(ViewBag.PreviousBillDate != null ? ViewBag.PreviousBillDate.ToString() : "")
+                    @(ViewBag.DateTime != null ? ViewBag.DateTime.ToString() : "")
+                </div>*@
+
+        </div>
+    </div>
+
+}
+
+
+
+
+
+

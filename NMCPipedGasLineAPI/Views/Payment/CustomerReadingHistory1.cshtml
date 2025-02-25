@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "CustomerReadingHistory1";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+}
+
+@model NMCPipedGasLineAPI.Models.CustomerBillReading
+@{
+    ViewBag.Title = "CustomerReadingHistory";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+}
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+         @*@if(@Model.Id !=null)
+        {
+            <text>
+        $("#cbtn").hide();
+        </text>
+         }
+         else
+         {
+              <text>
+        $("#cbtn").show();
+        </text>
+         }*@
+
+        $("#myTable").DataTable({
+                         "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                             "url":'@Url.Action("LoadCustomerReadingData", "Payment")',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "Type", "name": "CurrentRedg", "autoWidth": true },
+               
+                { "data": "CurrentRedg", "name": "CurrentRedg", "autoWidth": true },
+                { "data": "CurrentRedgDate", "name": "CurrentRedgDate", "autoWidth": true }
+                ,
+                 {
+                    data: "MeterRedgImage","bSearchable": false, bSortable: false,
+                     mRender: function (data, type, row) {
+                         if (data != "") {
+                             return '<a href ="' + data + '"  target = _blank>View Image</a>'
+                         }
+                         else {
+                             return ''
+                         }
+                   }
+                }
+                ,
+                { "data": "BillNo", "name": "BillNo", "autoWidth": true },
+                { "data": "BillDate", "name": "BillDate", "autoWidth": true }
+                ,
+
+                 {
+                     data: { Id: "Id", BillId: "BillId"}, "bSearchable": false,bSortable: false,
+
+
+                     mRender: function (data, type, row) {
+
+                         if (data.BillId != "") {
+                             
+                             return '<a  target =_blank href=ViewBill?BillId=' + data.BillId + ' class="btn btn-sm btn-light-success">View Bill</a>'
+                         }
+                         else
+                         {
+                             return ''
+                         }
+                     }
+
+
+
+                }
+            ]
+        });
+
+
+
+
+    });
+
+
+
+
+</script>
+
+<div class="form-horizontal">
+
+    <br />
+    <div style="float:right">
+        <button title="Create New" id="cbtn" value="Add Reading" onclick="location.href='@Url.Action("CustomerReading1", "Payment")'" class="btn btn-dark-success">Create New</button>
+    </div>
+
+    <br /><br /><br /><br />
+    <div class="table-responsive">
+        <table id="myTable" class="table-full table table-bordered text-nowrap">
+            <thead>
+                <tr>
+                    <th>Create by</th>
+                    <th>Reading</th>
+                    <th>Reading Date</th>
+                    <th>Meter Image</th>
+                    <th>Bill No.</th>
+                    <th>Bill Date</th>
+
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+

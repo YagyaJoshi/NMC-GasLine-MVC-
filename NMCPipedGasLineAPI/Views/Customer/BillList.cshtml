@@ -1,0 +1,67 @@
+﻿@model NMCPipedGasLineAPI.Models.CustomerBillInformation
+@{
+    ViewBag.Title = "Bill History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("#myTable").DataTable({
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url":'@Url.Action("BillData", "Customer")',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "BillNo", "name": "BillNo", "autoWidth": true },
+                { "data": "BillDate", "name": "BillDate", "autoWidth": true },
+                { "data": "Type", "name": "Type", "autoWidth": true },
+                { "data": "InvoiceValue", "name": "TotalAmt", "autoWidth": true },
+                //{ "data": "ConsumeUnit", "name": "ConsumeUnit", "autoWidth": true }
+
+                {
+                    //data: "customerid", "bSearchable": false,
+                    data: "billid", "bSearchable": false,
+                    
+                    bSortable: false,
+                    mRender: function (data, type, row) {
+
+                        return '<a href=ViewBill?BillId=' + data + ' class="btn btn-light-success btn-sm">Bill</a>'
+                            + ' <a href=PaymentHistory?CustomerId=' + data + ' class="btn btn-light-success btn-sm">Receipt</a>'
+                    }
+                }
+            ]
+        });
+
+
+       
+    });
+</script>
+
+<div class="form-horizontal">
+
+
+
+    <h4>Bill History</h4>
+    <br />
+
+    <table id="myTable" class="table-full table table-bordered table-responsive text-nowrap">
+        <thead>
+            <tr>
+                <th>Bill No.</th>
+                <th>Bill Date</th>
+                <th>Type</th>
+                <th>Total Amt.</th>
+                <th>Action</th>
+                @*<th>Previous Diposite</th>*@
+            </tr>
+        </thead>
+    </table>
+    <a href='@Url.Action("List","Customer")' class="mr-2 btn btn-dark">Back To List</a>
+ 
+</div>

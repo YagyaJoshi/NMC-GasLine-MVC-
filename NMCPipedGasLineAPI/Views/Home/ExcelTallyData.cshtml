@@ -1,0 +1,37 @@
+﻿@model NMCPipedGasLineAPI.Models.GetDataFromExcel
+
+@{
+    ViewBag.Title = "ExcelTallyData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron">
+    <h3>Excel Data</h3>
+    <table class="table-bordered table">
+        <thead>
+            <tr>
+                <th>Party Name</th>
+                <th>Closing Balance</th>
+                <th>Prev Bill Date</th>
+                <th>Prev Reading</th>
+                <th>Contact Nos</th>
+                <th>Email Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.list)
+            {
+            <tr>
+                <td>@item.PartyName</td>
+                <td>@item.ClosingBalance</td>
+                <td>@item.PrevBillDate</td>
+                <td>@item.PrevReading</td>
+                <td>@item.ContactNos</td>
+                <td>@item.EmailId</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+   
+</div>
+

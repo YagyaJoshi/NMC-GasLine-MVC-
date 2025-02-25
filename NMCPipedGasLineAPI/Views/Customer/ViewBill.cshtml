@@ -1,0 +1,422 @@
+﻿@model NMCPipedGasLineAPI.Models.CustomerBillInformation
+@{
+    ViewBag.Title = "ViewBill";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>ViewBill</h2>*@
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+        body {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #333;
+            padding-top: 30px;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            height: 34px;
+            padding: 4px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border-radius: 0px;
+        }
+
+        label {
+            display: inline-block;
+            max-width: 100%;
+            margin-bottom: 5px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    @if (@Model.Type != "Deposit")
+    {
+        <table style="max-width: 83vw;width: 100%;border-radius: 10px;padding: 10px 0;width: 100%;margin: auto;border-collapse: collapse;vertical-align: top;" cellpadding="1" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td colspan="100" style="padding: 0 15px;">
+                        <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;margin-bottom: 20px;font-size: 21px;line-height: inherit;color: #333;border: 0;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px; text-align:center;">TAX INVOICE</legend>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Name</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.PartyName
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Address</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.StockItemName
+                        </label>
+                    </td>
+
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Bill Period</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.Month
+                        </label>
+                    </td>
+
+
+
+                </tr>
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Bill No.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.BillNo
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Due Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.DueDate
+                        </label>
+                    </td>
+
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Bill Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.BillDate
+                        </label>
+                    </td>
+
+
+
+                </tr>
+
+                <tr>
+                    <td colspan="100" style="padding: 0 15px;">
+                        <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;"></legend>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Closing Rdg.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.ClosingRedg
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                            @Model.BillDate
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Previous Rdg.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.PreviousRedg
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.PreviousBillDate
+
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Current(SCM)</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.GASCOMSUMPTIONLed
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Current(Kgs.)</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                            @Model.ConsumptioninKG
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Rate</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.Rate
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Gas Consume</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.ConsumeUnit
+
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Dalay Chg.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.LateFee
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">@Model.Type</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @if (@Model.ServiceAmt != 0)
+                            {@Model.ServiceAmt}
+                        else
+                        { @Model.ReconnectionAmt}
+                        </label>
+                    </td>
+                    @*<td style="padding-right: 15px;padding-left: 15px;">
+                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">other Chg.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                            </label>
+                        </td>*@
+
+                </tr>
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">SGST</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                            @Model.SGST
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">CGST</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.CGST
+                        </label>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        @if (@Model.diposit != 0)
+                        {
+                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Deposit</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                @if (@Model.diposit != 0)
+                                {@Model.diposit}
+                            else
+                            {@Model.PreviousBalance}
+                            </label>}
+                        else
+                        {
+                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Previous Balance</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                                @if (@Model.diposit != 0)
+                                {@Model.diposit}
+                            else
+                            {@Model.PreviousBalance}
+                            </label>
+                        }
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Balance Due</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                            @Model.Arrears
+                        </label>
+                    </td>
+                <tr>
+                    @if (@Model.ConsumeUnit == 0)
+                    {
+                        <td style="padding-right: 15px;padding-left: 15px;">
+                            <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Min Payable Amt.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                                @Model.MinAmt
+                            </label>
+                        </td>
+                    }
+
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Total Amt.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.InvoiceValue
+
+                        </label>
+                    </td>
+
+                </tr>
+
+
+
+
+                @*<tr>
+                        <td colspan="100" style="padding: 0 15px;">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="100" style="padding: 15px;">
+                            <p style="margin:0; font-size: 18px; color:#6a6a6a; text-align:center; font-family: sans-serif; line-height: 1.6;">
+                                <strong>Bill Received: </strong>Rs.
+
+                            </p>
+
+                        </td>
+
+
+
+                    </tr>*@
+
+
+                <tr>
+                    <td colspan="100" style="padding: 0 15px;">
+                        <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;"></legend>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+
+        <table style="max-width: 83vw;width: 100%;border-radius: 10px;padding: 10px 0;width: 100%;margin: auto;border-collapse: collapse;vertical-align: top;" cellpadding="1" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td colspan="100" style="padding: 0 15px;">
+                        <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;margin-bottom: 20px;font-size: 21px;line-height: inherit;color: #333;border: 0;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px; text-align:center;">TAX INVOICE</legend>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Name</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.PartyName
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Address</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.StockItemName
+                        </label>
+                    </td>
+
+
+
+
+
+                </tr>
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Bill No.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.BillNo
+                        </label>
+                    </td>
+
+
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Bill Date</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.BillDate
+                        </label>
+                    </td>
+
+
+
+                </tr>
+
+                <tr>
+                    <td colspan="100" style="padding: 0 15px;">
+                        <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;"></legend>
+                    </td>
+                </tr>
+
+
+
+
+
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Connect Chg.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                            @Model.ReconnectionAmt
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Meter Inst Chg.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.InstallationCharges
+                        </label>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">SGST</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                            @Model.SGST
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">CGST</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.CGST
+                        </label>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Total Amt.</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+
+                            @Model.InvoiceValue
+                        </label>
+                    </td>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Total Paid</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.Amount
+                        </label>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td style="padding-right: 15px;padding-left: 15px;">
+                        <label style="font-size: 14px; color:#333; text-align:center; font-family: sans-serif;">Balance Due</label> <label class="form-control" style="font-size: 14px;font-family: sans-serif;text-align: left;border: 1px solid #E3E3E3;border-radius: 4px;box-shadow: none;height: 38px;padding: 6px 16px;background-color: #EEEEEE;color: #999999;cursor: not-allowed;">
+                            @Model.PaymentDue
+
+                        </label>
+                    </td>
+                </tr>
+
+
+                @*<tr>
+                        <td colspan="100" style="padding: 0 15px;">
+                            <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;"></legend>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="100" style="padding: 15px;">
+                            <p style="margin:0; font-size: 18px; color:#6a6a6a; text-align:center; font-family: sans-serif; line-height: 1.6;">
+                                <strong>Bill Received: </strong>Rs.
+
+                            </p>
+
+                        </td>
+
+
+
+                    </tr>*@
+
+
+                <tr>
+                    <td colspan="100" style="padding: 0 15px;">
+                        <legend style="text-align: left;font-family: sans-serif;display: block;width: 100%;font-size: 21px;line-height: inherit;color: #333;border-bottom: 1px solid #e5e5e5;padding-bottom: 3px;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;"></legend>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+
+    }
+    
+    <a href="BillList?CustomerId=@Session["Customer"].ToString()" class="mr-2 btn btn-dark">Back To List</a>
+    
+</body>
+
+</html>
